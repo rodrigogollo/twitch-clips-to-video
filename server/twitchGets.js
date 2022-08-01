@@ -18,7 +18,6 @@ async function getGameByName(name) {
       }
     })
     if(res.status == 200) {
-      console.log(res.data)
       return res.data;
     }
   } catch (error) {
@@ -39,7 +38,6 @@ async function getUserByLogin(login) {
       }
     })
     if(res.status == 200) {
-      console.log(res.data)
       return res.data;
     }
   } catch (error) {
@@ -64,7 +62,6 @@ async function getClipsByBroadcaster(broadcaster_id, first, started_at, ended_at
       }
     })
     if(res.status == 200) {
-      console.log(res.data)
       return res.data;
     }
   } catch (error) {
@@ -88,7 +85,6 @@ async function getClipsByGame(game_id, first, started_at, ended_at) {
       }
     })
     if(res.status == 200) {
-      console.log(res.data)
       return res.data;
     }
   } catch (error) {
@@ -96,6 +92,13 @@ async function getClipsByGame(game_id, first, started_at, ended_at) {
   }
 }
 
-// getGameByName('csgo')
 // getUserByLogin('jerma985')
-getClipsByBroadcaster(23936415, 10, '2022-07-26T00:00:00Z', new Date())
+// getClipsByBroadcaster(23936415, 10, '2022-07-26T00:00:00Z', new Date())
+// getClipsByGame(32399, 10, '2022-07-26T00:00:00Z', new Date())
+
+module.exports = {
+  getGameByName,
+  getUserByLogin,
+  getClipsByBroadcaster,
+  getClipsByGame
+}
