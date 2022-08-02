@@ -41,4 +41,36 @@ function downloadClipLocal (url, filename){
   console.log(`Video '${filename}' salvo com sucesso!`)
 }
 
-makeVideo()
+//makeVideo()
+
+
+async function getVideos() {
+  let today = new Date();
+  let yesterday = new Date();
+  yesterday.setDate(today.getDate() - 1);
+  let gameData = await twitchGets.getGameByName('multiversus');
+  let getClipData = await twitchGets.getClipsByGame(gameData.data[0].id, 100, yesterday, today);
+
+  let clipsEN = getClipData.data.filter(item => item.language == 'en')
+
+  let uniqueStreamerClips = clipsEN.filter((value, index, self) =>
+    index === self.findIndex((t) => (
+      t.broadcaster_name === value.broadcaster_name
+  )))
+
+  let top10Clips = uniqueStreamerClips.slice(0, 20)
+
+  let top10URLS = [];
+
+  top10Clips.forEach((item, i) => {
+    let filename = `clip${i+1}`;
+    let URL_CLIP = item.thumbnail_url.replace('-preview-480x272.jpg', '.mp4');
+  
+    top10URLS.push(URL_CLIP);
+  })
+  return top10URLS;
+}
+
+module.exports = {
+  getVideos
+}

@@ -8,7 +8,7 @@ export const RemotionVideo: React.FC = () => {
         id="MyVideo"
         component={MyVideo}
         durationInFrames={10000}
-        fps={30}
+        fps={60}
         width={1920}
         height={1080}
         // Optionally, you can define props that get passed to the component
