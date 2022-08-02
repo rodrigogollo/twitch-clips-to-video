@@ -22,7 +22,7 @@ async function makeVideo() {
 
   // let gameData = await twitchGets.getGameByName('just chatting');
   // let getClipData = await twitchGets.getClipsByGame(gameData.data[0].id, 100, yesterday, today);
-  let streamerData = await twitchGets.getUserByLogin('pokelawls');
+  let streamerData = await twitchGets.getUserByLogin('imaqtpie');
   let getClipData = await twitchGets.getClipsByBroadcaster(streamerData.data[0].id, 100, month, today);
 
   let durationAllVideos = 0;
@@ -40,14 +40,17 @@ async function makeVideo() {
   let topClips = clipsFiltered.slice(0, 15)
   console.log(topClips)
 
+  let clipList = {}; 
+
   topClips.forEach((item, i) => {
     durationAllVideos += item.duration;
     let filename = `clip${i+1}`;
     let URL_CLIP = item.thumbnail_url.replace('-preview-480x272.jpg', '.mp4');
-  
+    Object.assign(clipList, {[filename]: `${filename}.mp4`})
     downloadClipLocal(URL_CLIP, filename)
   })
   console.log('Total Duration: ', durationAllVideos)
+  writeClipListToJSON(clipList)
 }
 
 function downloadClipLocal (url, filename){
@@ -65,7 +68,11 @@ function downloadClipLocal (url, filename){
       file.close()
      });
   })
-  
+}
+
+function writeClipListToJSON(clipList){
+  const clipListJSON = JSON.stringify({clips: clipList})
+  const file = fs.writeFileSync(__dirname + `/../downloads/clips.json`, clipListJSON);
 }
 
 makeVideo()
