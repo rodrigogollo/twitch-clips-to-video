@@ -6,7 +6,7 @@ import { Intro } from "./Intro";
 import { Outro } from "./Outro";
 import { useEffect, useState } from "react";
 
-import {clips as clipList} from '../downloads/clips.json';
+import { clips as clipList } from '../downloads/clips.json';
 
 export const ClipsList: React.FC <{
   clipList: any

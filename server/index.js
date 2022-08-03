@@ -3,13 +3,15 @@ const fs = require('fs');
 var ffmpeg = require('fluent-ffmpeg');
 const twitchGets = require('./twitchGets');
 const cliProgress = require('cli-progress');
+const { asyncWrapper } = require('../utils');
 
-let progressBarList = {}
 
-let multibar = new cliProgress.MultiBar({
-  clearOnComplete: false,
-  hideCursor: true
-}, cliProgress.Presets.legacy);
+// let progressBarList = {}
+
+// let multibar = new cliProgress.MultiBar({
+//   clearOnComplete: false,
+//   hideCursor: true
+// }, cliProgress.Presets.legacy);
 
 async function makeVideo() {
   let today = new Date();
@@ -29,10 +31,10 @@ async function makeVideo() {
   week.setHours(0,0,0,0);
   month.setHours(0,0,0,0);
 
-  // let gameData = await twitchGets.getGameByName('just chatting');
+  // let gameData = await twitchGets.getGameByName('slots');
   // let getClipData = await twitchGets.getClipsByGame(gameData.data[0].id, 100, yesterday, today);
-  let streamerData = await twitchGets.getUserByLogin('imaqtpie');
-  let getClipData = await twitchGets.getClipsByBroadcaster(streamerData.data[0].id, 100, month, today);
+  let streamerData = await twitchGets.getUserByLogin('xqc');
+  let getClipData = await twitchGets.getClipsByBroadcaster(streamerData.data[0].id, 100, yesterday, today);
 
   let durationAllVideos = 0;
 
@@ -46,24 +48,25 @@ async function makeVideo() {
   //     t.broadcaster_name === value.broadcaster_name
   // )))
 
-  let topClips = clipsFiltered.slice(0, 2)
+  let topClips = clipsFiltered.slice(0, 15)
   console.log(topClips)
 
   let clipList = {}; 
-
 
   topClips.forEach((item, i) => {
     durationAllVideos += item.duration;
     let filename = `clip${i+1}`;
     let URL_CLIP = item.thumbnail_url.replace('-preview-480x272.jpg', '.mp4');
-    Object.assign(clipList, {[filename]: `${filename}.webm`})
+    Object.assign(clipList, {[filename]: `${filename}.mp4`})
 
-    Object.assign(progressBarList, {[filename]: multibar.create(100, 0)})
+    //Object.assign(progressBarList, {[filename]: multibar.create(100, 0)})
 
-    downloadClipLocal(URL_CLIP, filename)
+    asyncWrapper(downloadClipLocal(URL_CLIP, filename))
   })
   console.log('Total Duration: ', durationAllVideos)
   writeClipListToJSON(clipList)
+
+  return topClips;
 }
 
 function downloadClipLocal (url, filename){
@@ -71,36 +74,38 @@ function downloadClipLocal (url, filename){
     if (err) throw err;
   });
 
-  var infs = new ffmpeg
+  const file = fs.createWriteStream(__dirname + `/../downloads/${filename}.mp4`);
+  const request = https.get(url, function(response) {
+     response.pipe(file);
+     // after download completed close filestream
+     file.on("finish", () => {
+      console.log(`Video '${filename}' salvo com sucesso!`);
+      file.close()
+     });
+  })
 
-  infs.addInput(url).output(__dirname + `/../downloads/${filename}.webm`)
-  .on('start', function (commandLine) {
-    progressBarList[filename].start(99.99, 0.00);
-    console.log('Iniciou download do arquivo: ' + filename);
-  })
-  .on('error', function (err, stdout, stderr) {
-      console.log('Erro ao baixar o arquivo: ' + err.message, err, stderr);
-  })
-  .on('progress', function (progress) {
-    //console.log(`Processando Arquivo '${filename}': ` + progress.percent.toFixed(2) + '% done')
-    progressBarList[filename].update(Math.round((progress.percent + Number.EPSILON) * 100) / 100);
-  })
-  .on('end', function (err, stdout, stderr) {
-    progressBarList[filename].stop();
-    console.log(`Video '${filename}' salvo com sucesso!`);
-  })
-  .run()
+  /* conversion mp4 to webm works but not worth (time consuming for conversion and video build still slow) */
 
-  // const file = fs.createWriteStream(__dirname + `/../downloads/${filename}.mp4`);
-  // const request = https.get(url, function(response) {
-  //    response.pipe(file);
-  
-  //    // after download completed close filestream
-  //    file.on("finish", () => {
-  //     console.log(`Video '${filename}' salvo com sucesso!`);
-  //     file.close()
-  //    });
+  // var infs = new ffmpeg
+
+  // infs.addInput(url).output(__dirname + `/../downloads/${filename}.webm`)
+  // .on('start', function (commandLine) {
+  //   progressBarList[filename].start(99.99, 0.00);
+  //   console.log('Iniciou download do arquivo: ' + filename);
   // })
+  // .on('error', function (err, stdout, stderr) {
+  //     console.log('Erro ao baixar o arquivo: ' + err.message, err, stderr);
+  // })
+  // .on('progress', function (progress) {
+  //   //console.log(`Processando Arquivo '${filename}': ` + progress.percent.toFixed(2) + '% done')
+  //   progressBarList[filename].update(Math.round((progress.percent + Number.EPSILON) * 100) / 100);
+  // })
+  // .on('end', function (err, stdout, stderr) {
+  //   progressBarList[filename].stop();
+  //   console.log(`Video '${filename}' salvo com sucesso!`);
+  // })
+  // .run()
+
 }
 
 function writeClipListToJSON(clipList){
@@ -108,8 +113,7 @@ function writeClipListToJSON(clipList){
   const file = fs.writeFileSync(__dirname + `/../downloads/clips.json`, clipListJSON);
 }
 
-makeVideo()
-
+//makeVideo()
 
 async function getVideos() {
   let today = new Date();
@@ -139,5 +143,6 @@ async function getVideos() {
 }
 
 module.exports = {
-  getVideos
+  makeVideo
+  //getVideos
 }
