@@ -37,9 +37,7 @@ export const ClipsList: React.FC <{
       }
       return clipArray
     }
-    createClipListArray().then(result => {
-      setClipListArray(result);
-    })
+    createClipListArray().then(result => setClipListArray(result))
   }, [clipListArray])
     
 	return (
@@ -48,14 +46,6 @@ export const ClipsList: React.FC <{
         <Intro />
       </Sequence>
     {
-
-      //3 clipes
-      //INTRO - 0 AO 60 FRAMES
-      //TRANSITION COMEÇA 60
-      //CLIP COMEÇA NO TRANSITION
-      //TRANSITION COMECA NO TRANSITION ANTERIOR + CLIP ANTERIORES
-      //DURATION - TODOS OS CLIPES ANTERIORES E TRANSITIONS
-
       clipListArray.map((clip, i, origin) => {
         let duration = clip.duration;
         let transitionStart = transition;

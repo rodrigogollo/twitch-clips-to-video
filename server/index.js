@@ -1,6 +1,15 @@
 const https = require('https'); // or 'https' for https:// URLs
 const fs = require('fs');
+var ffmpeg = require('fluent-ffmpeg');
 const twitchGets = require('./twitchGets');
+const cliProgress = require('cli-progress');
+
+let progressBarList = {}
+
+let multibar = new cliProgress.MultiBar({
+  clearOnComplete: false,
+  hideCursor: true
+}, cliProgress.Presets.legacy);
 
 async function makeVideo() {
   let today = new Date();
@@ -37,16 +46,20 @@ async function makeVideo() {
   //     t.broadcaster_name === value.broadcaster_name
   // )))
 
-  let topClips = clipsFiltered.slice(0, 15)
+  let topClips = clipsFiltered.slice(0, 2)
   console.log(topClips)
 
   let clipList = {}; 
+
 
   topClips.forEach((item, i) => {
     durationAllVideos += item.duration;
     let filename = `clip${i+1}`;
     let URL_CLIP = item.thumbnail_url.replace('-preview-480x272.jpg', '.mp4');
-    Object.assign(clipList, {[filename]: `${filename}.mp4`})
+    Object.assign(clipList, {[filename]: `${filename}.webm`})
+
+    Object.assign(progressBarList, {[filename]: multibar.create(100, 0)})
+
     downloadClipLocal(URL_CLIP, filename)
   })
   console.log('Total Duration: ', durationAllVideos)
@@ -58,16 +71,36 @@ function downloadClipLocal (url, filename){
     if (err) throw err;
   });
 
-  const file = fs.createWriteStream(__dirname + `/../downloads/${filename}.mp4`);
-  const request = https.get(url, function(response) {
-     response.pipe(file);
-  
-     // after download completed close filestream
-     file.on("finish", () => {
-      console.log(`Video '${filename}' salvo com sucesso!`);
-      file.close()
-     });
+  var infs = new ffmpeg
+
+  infs.addInput(url).output(__dirname + `/../downloads/${filename}.webm`)
+  .on('start', function (commandLine) {
+    progressBarList[filename].start(99.99, 0.00);
+    console.log('Iniciou download do arquivo: ' + filename);
   })
+  .on('error', function (err, stdout, stderr) {
+      console.log('Erro ao baixar o arquivo: ' + err.message, err, stderr);
+  })
+  .on('progress', function (progress) {
+    //console.log(`Processando Arquivo '${filename}': ` + progress.percent.toFixed(2) + '% done')
+    progressBarList[filename].update(Math.round((progress.percent + Number.EPSILON) * 100) / 100);
+  })
+  .on('end', function (err, stdout, stderr) {
+    progressBarList[filename].stop();
+    console.log(`Video '${filename}' salvo com sucesso!`);
+  })
+  .run()
+
+  // const file = fs.createWriteStream(__dirname + `/../downloads/${filename}.mp4`);
+  // const request = https.get(url, function(response) {
+  //    response.pipe(file);
+  
+  //    // after download completed close filestream
+  //    file.on("finish", () => {
+  //     console.log(`Video '${filename}' salvo com sucesso!`);
+  //     file.close()
+  //    });
+  // })
 }
 
 function writeClipListToJSON(clipList){

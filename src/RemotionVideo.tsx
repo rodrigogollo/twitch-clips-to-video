@@ -1,4 +1,4 @@
-import { Composition } from "remotion";
+import { continueRender, delayRender, Composition } from "remotion";
 import { useState } from "react";
 import { parse } from "dotenv";
 import { getVideoMetadata } from "@remotion/media-utils";
@@ -8,7 +8,7 @@ import {clips as clipList} from '../downloads/clips.json';
 import { useEffect } from "react";
 
 export const RemotionVideo: React.FC = () => {
-  
+  const [handle] = useState(() => delayRender());
   const [duration, setDuration] = useState(1);
 
   useEffect(() => {
@@ -23,14 +23,9 @@ export const RemotionVideo: React.FC = () => {
     }
     getTotalDuration().then(result => {
       setDuration(result);
+      continueRender(handle);
     })
-  }, [duration])
-
-  const Teste = () => {
-    return (
-      <h1>{duration}</h1>
-    )
-  }
+  }, [handle])
 
   return (
 		 <>

@@ -1,1 +1,6 @@
-{"clips":{"clip1":"clip1.mp4","clip2":"clip2.mp4","clip3":"clip3.mp4","clip4":"clip4.mp4","clip5":"clip5.mp4","clip6":"clip6.mp4","clip7":"clip7.mp4","clip8":"clip8.mp4","clip9":"clip9.mp4","clip10":"clip10.mp4","clip11":"clip11.mp4","clip12":"clip12.mp4","clip13":"clip13.mp4","clip14":"clip14.mp4","clip15":"clip15.mp4"}}
+{
+  "clips": {
+    "clip1": "clip1.webm",
+    "clip2": "clip2.webm"
+  }
+}
