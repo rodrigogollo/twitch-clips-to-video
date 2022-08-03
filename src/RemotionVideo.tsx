@@ -3,7 +3,7 @@ import { useState } from "react";
 import { parse } from "dotenv";
 import { getVideoMetadata } from "@remotion/media-utils";
 
-import { MyVideo } from "./MyVideo";
+import { ClipsList } from "./ClipsList";
 import {clips as clipList} from '../downloads/clips.json';
 import { useEffect } from "react";
 
@@ -36,12 +36,12 @@ export const RemotionVideo: React.FC = () => {
 		 <>
 			<Composition
         id="MyVideo"
-        component={MyVideo}
+        component={ClipsList}
         durationInFrames={duration}
         fps={30}
         width={1920}
         height={1080}
-        //defaultProps={{ }}        
+        defaultProps={{ clipList: clipList }}        
       />
 		</>
 	);
