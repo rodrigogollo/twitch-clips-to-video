@@ -18,7 +18,7 @@ export const ClipsList: React.FC <{
     clipName: '',
     duration: 1
   }])
-  const transition = 100;
+  const transition = 120;
 
 	useEffect(() => {
 
@@ -60,12 +60,15 @@ export const ClipsList: React.FC <{
             </Sequence>
             
             <Sequence key={clip.id + "_seq_clip"} from={transitionStart + transition} durationInFrames={clip.duration}>
-              <Clip  key={clip.id} clip={clip.clipName} />
+              <Clip  key={clip.id} clip={clip.clipName} volume={0.1}/>
             </Sequence> 
           </ div>
         )
       })
     }
+      <Sequence from={0} durationInFrames={transition}>
+        <Outro />
+      </Sequence>
     </>
 	);
 };
