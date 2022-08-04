@@ -1,20 +1,19 @@
 
 import { Audio } from "remotion";
-import audio from "../intro.mp3";
+import audio from "../clip.mp3";
+import './ClipInfo.css';
 
-export const ClipInfo = () => {
+export const ClipInfo: React.FC<{
+  broadcaster: string,
+  title: string,
+  date: string,
+  creator: string
+}> = ({broadcaster, title, date, creator}) => {
 	return (
-    <div style={{
-      display: 'flex',
-      textAlign: 'center',
-      alignContent: 'center',
-      backgroundColor: 'purple',
-      width: '100%',
-      height: '100%'
-      }} >
-      <h1 style={{
-        color: 'white',
-      }}>CLIP BROADCASTER - CLIP NAME</h1>
+    <div className="clip-info">
+      <h1>{broadcaster} - {title}</h1>
+      <h2>Created by: {creator}</h2>
+      <p>{date}</p>
       <Audio
         src={audio}
         startFrom={480} // if composition is 30fps, then it will start at 15s

@@ -1,1 +1,319 @@
-{"clips":{"clip1":"clip1.mp4","clip2":"clip2.mp4","clip3":"clip3.mp4","clip4":"clip4.mp4","clip5":"clip5.mp4","clip6":"clip6.mp4","clip7":"clip7.mp4","clip8":"clip8.mp4","clip9":"clip9.mp4","clip10":"clip10.mp4","clip11":"clip11.mp4","clip12":"clip12.mp4","clip13":"clip13.mp4","clip14":"clip14.mp4","clip15":"clip15.mp4"}}
+{
+  "clips": [
+    {
+      "video": "clip1.mp4",
+      "data": {
+        "id": "ImpossibleWiseMeatloafKAPOW-dIMJB_UT2GwX6nAW",
+        "url": "https://clips.twitch.tv/ImpossibleWiseMeatloafKAPOW-dIMJB_UT2GwX6nAW",
+        "embed_url": "https://clips.twitch.tv/embed?clip=ImpossibleWiseMeatloafKAPOW-dIMJB_UT2GwX6nAW",
+        "broadcaster_id": "813448406",
+        "broadcaster_name": "egmchosen",
+        "creator_id": "813448406",
+        "creator_name": "egmchosen",
+        "video_id": "",
+        "game_id": "950189725",
+        "language": "en",
+        "title": "Do the bunny hop",
+        "view_count": 2110,
+        "created_at": "2022-08-02T21:58:05Z",
+        "thumbnail_url": "https://clips-media-assets2.twitch.tv/seziKXSDCQf1E9hsF-pwFg/AT-cm%7CseziKXSDCQf1E9hsF-pwFg-preview-480x272.jpg",
+        "duration": 30,
+        "vod_offset": null
+      }
+    },
+    {
+      "video": "clip2.mp4",
+      "data": {
+        "id": "AcceptableRealApeOneHand-f4TPXxDNmPc8C5K1",
+        "url": "https://clips.twitch.tv/AcceptableRealApeOneHand-f4TPXxDNmPc8C5K1",
+        "embed_url": "https://clips.twitch.tv/embed?clip=AcceptableRealApeOneHand-f4TPXxDNmPc8C5K1",
+        "broadcaster_id": "81764480",
+        "broadcaster_name": "gsmVoiD",
+        "creator_id": "137937365",
+        "creator_name": "bubbleduckluck69",
+        "video_id": "1550332701",
+        "game_id": "950189725",
+        "language": "en",
+        "title": "PagMan ? 15 seconds in ",
+        "view_count": 1029,
+        "created_at": "2022-08-02T20:43:51Z",
+        "thumbnail_url": "https://clips-media-assets2.twitch.tv/uX1KPX-Ez18QzZj3PAuStQ/41067261803-offset-6742-preview-480x272.jpg",
+        "duration": 26,
+        "vod_offset": 6718
+      }
+    },
+    {
+      "video": "clip3.mp4",
+      "data": {
+        "id": "SeductiveFrailWoodpeckerSaltBae-Fh2lzeha0Gzn9Bbw",
+        "url": "https://clips.twitch.tv/SeductiveFrailWoodpeckerSaltBae-Fh2lzeha0Gzn9Bbw",
+        "embed_url": "https://clips.twitch.tv/embed?clip=SeductiveFrailWoodpeckerSaltBae-Fh2lzeha0Gzn9Bbw",
+        "broadcaster_id": "205301469",
+        "broadcaster_name": "skippypoppin",
+        "creator_id": "61112237",
+        "creator_name": "dirtxnap",
+        "video_id": "1549874778",
+        "game_id": "950189725",
+        "language": "en",
+        "title": "Playing games with ldiot",
+        "view_count": 617,
+        "created_at": "2022-08-02T05:19:22Z",
+        "thumbnail_url": "https://clips-media-assets2.twitch.tv/O0r7uxYdpc3oWtBs5_QW8A/46913930637-offset-1056-preview-480x272.jpg",
+        "duration": 26,
+        "vod_offset": 1032
+      }
+    },
+    {
+      "video": "clip4.mp4",
+      "data": {
+        "id": "GentleMoralStinkbugTBTacoLeft-jv5qeUydaB3PvAUp",
+        "url": "https://clips.twitch.tv/GentleMoralStinkbugTBTacoLeft-jv5qeUydaB3PvAUp",
+        "embed_url": "https://clips.twitch.tv/embed?clip=GentleMoralStinkbugTBTacoLeft-jv5qeUydaB3PvAUp",
+        "broadcaster_id": "38244180",
+        "broadcaster_name": "alanzoka",
+        "creator_id": "556035811",
+        "creator_name": "Murilo1BR",
+        "video_id": "1550394538",
+        "game_id": "950189725",
+        "language": "en",
+        "title": "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK",
+        "view_count": 433,
+        "created_at": "2022-08-02T20:45:19Z",
+        "thumbnail_url": "https://clips-media-assets2.twitch.tv/6AhD847-anlMnWgdz7wFKQ/AT-cm%7C6AhD847-anlMnWgdz7wFKQ-preview-480x272.jpg",
+        "duration": 44.6,
+        "vod_offset": 2765
+      }
+    },
+    {
+      "video": "clip5.mp4",
+      "data": {
+        "id": "LitigiousBlitheKumquatBatChest-GpTxc8Rbcj1HSdNd",
+        "url": "https://clips.twitch.tv/LitigiousBlitheKumquatBatChest-GpTxc8Rbcj1HSdNd",
+        "embed_url": "https://clips.twitch.tv/embed?clip=LitigiousBlitheKumquatBatChest-GpTxc8Rbcj1HSdNd",
+        "broadcaster_id": "649589696",
+        "broadcaster_name": "fwdman",
+        "creator_id": "649589696",
+        "creator_name": "fwdman",
+        "video_id": "1550172453",
+        "game_id": "950189725",
+        "language": "en",
+        "title": "huh",
+        "view_count": 163,
+        "created_at": "2022-08-02T16:29:38Z",
+        "thumbnail_url": "https://clips-media-assets2.twitch.tv/LjCDOxqU8XPEW3I9R0nTXQ/AT-cm%7CLjCDOxqU8XPEW3I9R0nTXQ-preview-480x272.jpg",
+        "duration": 30,
+        "vod_offset": 3157
+      }
+    },
+    {
+      "video": "clip6.mp4",
+      "data": {
+        "id": "EnthusiasticArbitrarySnakeKappaClaus-xvoiRlK1-a1PbUFq",
+        "url": "https://clips.twitch.tv/EnthusiasticArbitrarySnakeKappaClaus-xvoiRlK1-a1PbUFq",
+        "embed_url": "https://clips.twitch.tv/embed?clip=EnthusiasticArbitrarySnakeKappaClaus-xvoiRlK1-a1PbUFq",
+        "broadcaster_id": "148235477",
+        "broadcaster_name": "Lightwhisp",
+        "creator_id": "555176143",
+        "creator_name": "hionehi",
+        "video_id": "",
+        "game_id": "950189725",
+        "language": "en",
+        "title": "# 1 STEVEN|Playing 2s with ross|",
+        "view_count": 159,
+        "created_at": "2022-08-02T05:17:07Z",
+        "thumbnail_url": "https://clips-media-assets2.twitch.tv/C-VRncb6IkZStfmtT21Bag/41064727947-offset-12370-preview-480x272.jpg",
+        "duration": 30,
+        "vod_offset": null
+      }
+    },
+    {
+      "video": "clip7.mp4",
+      "data": {
+        "id": "TenaciousAlluringTermiteYouDontSay-hzkK5XthZ3EfFpVf",
+        "url": "https://clips.twitch.tv/TenaciousAlluringTermiteYouDontSay-hzkK5XthZ3EfFpVf",
+        "embed_url": "https://clips.twitch.tv/embed?clip=TenaciousAlluringTermiteYouDontSay-hzkK5XthZ3EfFpVf",
+        "broadcaster_id": "81764480",
+        "broadcaster_name": "gsmVoiD",
+        "creator_id": "91692076",
+        "creator_name": "dogt0r",
+        "video_id": "1550332701",
+        "game_id": "950189725",
+        "language": "en",
+        "title": "LEARNING NEW CHARACTERS !perks",
+        "view_count": 141,
+        "created_at": "2022-08-03T00:57:23Z",
+        "thumbnail_url": "https://clips-media-assets2.twitch.tv/LNfu8Yc5CuV7YWdxHxaVXw/41067261803-offset-21940-preview-480x272.jpg",
+        "duration": 30,
+        "vod_offset": 21916
+      }
+    },
+    {
+      "video": "clip8.mp4",
+      "data": {
+        "id": "EncouragingDarlingRadicchioUncleNox-8EVvHmwv24KJ4NKs",
+        "url": "https://clips.twitch.tv/EncouragingDarlingRadicchioUncleNox-8EVvHmwv24KJ4NKs",
+        "embed_url": "https://clips.twitch.tv/embed?clip=EncouragingDarlingRadicchioUncleNox-8EVvHmwv24KJ4NKs",
+        "broadcaster_id": "60264946",
+        "broadcaster_name": "djarii",
+        "creator_id": "66193370",
+        "creator_name": "arcxodas_tv",
+        "video_id": "1550060778",
+        "game_id": "950189725",
+        "language": "en",
+        "title": "@djarii | poop | !LogitechG !elgato !socials",
+        "view_count": 105,
+        "created_at": "2022-08-02T14:37:28Z",
+        "thumbnail_url": "https://clips-media-assets2.twitch.tv/AABNAfBFbx5sL9uCieDSrA/45856267068-offset-7100-preview-480x272.jpg",
+        "duration": 30,
+        "vod_offset": 7076
+      }
+    },
+    {
+      "video": "clip9.mp4",
+      "data": {
+        "id": "AuspiciousGeniusLionJonCarnage-fW0NHx9XXVnfxi3U",
+        "url": "https://clips.twitch.tv/AuspiciousGeniusLionJonCarnage-fW0NHx9XXVnfxi3U",
+        "embed_url": "https://clips.twitch.tv/embed?clip=AuspiciousGeniusLionJonCarnage-fW0NHx9XXVnfxi3U",
+        "broadcaster_id": "205301469",
+        "broadcaster_name": "skippypoppin",
+        "creator_id": "46165826",
+        "creator_name": "NotNullifer",
+        "video_id": "1549874778",
+        "game_id": "950189725",
+        "language": "en",
+        "title": "Playing games with ldiot",
+        "view_count": 93,
+        "created_at": "2022-08-02T05:08:07Z",
+        "thumbnail_url": "https://clips-media-assets2.twitch.tv/Jd-89X1tDR8fV11Z38Yt1A/46913930637-offset-380-preview-480x272.jpg",
+        "duration": 28,
+        "vod_offset": 356
+      }
+    },
+    {
+      "video": "clip10.mp4",
+      "data": {
+        "id": "WealthyHyperTurnipFunRun-PC_GDOYvE2fRrQcT",
+        "url": "https://clips.twitch.tv/WealthyHyperTurnipFunRun-PC_GDOYvE2fRrQcT",
+        "embed_url": "https://clips.twitch.tv/embed?clip=WealthyHyperTurnipFunRun-PC_GDOYvE2fRrQcT",
+        "broadcaster_id": "205301469",
+        "broadcaster_name": "skippypoppin",
+        "creator_id": "148263240",
+        "creator_name": "Aether_EZ",
+        "video_id": "1549874778",
+        "game_id": "950189725",
+        "language": "en",
+        "title": "Playing games with ldiot",
+        "view_count": 89,
+        "created_at": "2022-08-02T06:15:18Z",
+        "thumbnail_url": "https://clips-media-assets2.twitch.tv/2ampBDwvxgzmLxNn0a0HEw/46913930637-offset-4410-preview-480x272.jpg",
+        "duration": 28,
+        "vod_offset": 4386
+      }
+    },
+    {
+      "video": "clip11.mp4",
+      "data": {
+        "id": "ElegantObservantHyenaMingLee-yMgX2gGwVNxSczYu",
+        "url": "https://clips.twitch.tv/ElegantObservantHyenaMingLee-yMgX2gGwVNxSczYu",
+        "embed_url": "https://clips.twitch.tv/embed?clip=ElegantObservantHyenaMingLee-yMgX2gGwVNxSczYu",
+        "broadcaster_id": "81764480",
+        "broadcaster_name": "gsmVoiD",
+        "creator_id": "95518557",
+        "creator_name": "Za_Phantom_",
+        "video_id": "1550332701",
+        "game_id": "950189725",
+        "language": "en",
+        "title": "Do it to em",
+        "view_count": 83,
+        "created_at": "2022-08-02T21:05:08Z",
+        "thumbnail_url": "https://clips-media-assets2.twitch.tv/K2WLzsjIF9oBsFTcUnM2Lg/41067261803-offset-8018-preview-480x272.jpg",
+        "duration": 26,
+        "vod_offset": 7992
+      }
+    },
+    {
+      "video": "clip12.mp4",
+      "data": {
+        "id": "GenerousKathishCocoaRitzMitz-ktLFZUgnZkfE7d25",
+        "url": "https://clips.twitch.tv/GenerousKathishCocoaRitzMitz-ktLFZUgnZkfE7d25",
+        "embed_url": "https://clips.twitch.tv/embed?clip=GenerousKathishCocoaRitzMitz-ktLFZUgnZkfE7d25",
+        "broadcaster_id": "804628175",
+        "broadcaster_name": "owengejuicevt",
+        "creator_id": "679925242",
+        "creator_name": "thats_a_triangle",
+        "video_id": "",
+        "game_id": "950189725",
+        "language": "en",
+        "title": "Multiversus with some people [First Alt Stream]",
+        "view_count": 83,
+        "created_at": "2022-08-02T20:20:03Z",
+        "thumbnail_url": "https://clips-media-assets2.twitch.tv/b37VTZLSxWVIJ2ZHxO3duQ/45858384844-offset-5400-preview-480x272.jpg",
+        "duration": 28,
+        "vod_offset": null
+      }
+    },
+    {
+      "video": "clip13.mp4",
+      "data": {
+        "id": "ShakingClumsyChimpanzeeFutureMan-qcfhJHtHd--X04L1",
+        "url": "https://clips.twitch.tv/ShakingClumsyChimpanzeeFutureMan-qcfhJHtHd--X04L1",
+        "embed_url": "https://clips.twitch.tv/embed?clip=ShakingClumsyChimpanzeeFutureMan-qcfhJHtHd--X04L1",
+        "broadcaster_id": "63000646",
+        "broadcaster_name": "RDCgaming",
+        "creator_id": "43698581",
+        "creator_name": "Chonchito",
+        "video_id": "1549784278",
+        "game_id": "950189725",
+        "language": "en",
+        "title": "practicing so we dont take an L on thursday",
+        "view_count": 81,
+        "created_at": "2022-08-02T06:53:05Z",
+        "thumbnail_url": "https://clips-media-assets2.twitch.tv/MFB6i6nH4SR7R3fvl9OC9Q/46913066253-offset-15080-preview-480x272.jpg",
+        "duration": 28,
+        "vod_offset": 15056
+      }
+    },
+    {
+      "video": "clip14.mp4",
+      "data": {
+        "id": "AuspiciousAffluentCroissantJebaited-boIP6vG_stLGd1aa",
+        "url": "https://clips.twitch.tv/AuspiciousAffluentCroissantJebaited-boIP6vG_stLGd1aa",
+        "embed_url": "https://clips.twitch.tv/embed?clip=AuspiciousAffluentCroissantJebaited-boIP6vG_stLGd1aa",
+        "broadcaster_id": "814299103",
+        "broadcaster_name": "DummyEBK",
+        "creator_id": "199100342",
+        "creator_name": "blackzestuuu",
+        "video_id": "1550148139",
+        "game_id": "950189725",
+        "language": "en",
+        "title": "Come chill wit me Multiversus/other games",
+        "view_count": 75,
+        "created_at": "2022-08-02T16:09:15Z",
+        "thumbnail_url": "https://clips-media-assets2.twitch.tv/o6MU226CD-rxv7LSxndWmg/AT-cm%7Co6MU226CD-rxv7LSxndWmg-preview-480x272.jpg",
+        "duration": 29.9,
+        "vod_offset": 4086
+      }
+    },
+    {
+      "video": "clip15.mp4",
+      "data": {
+        "id": "SmoggyRepleteEchidnaBatChest-T1mcDyp0dqtnwd5C",
+        "url": "https://clips.twitch.tv/SmoggyRepleteEchidnaBatChest-T1mcDyp0dqtnwd5C",
+        "embed_url": "https://clips.twitch.tv/embed?clip=SmoggyRepleteEchidnaBatChest-T1mcDyp0dqtnwd5C",
+        "broadcaster_id": "63000646",
+        "broadcaster_name": "RDCgaming",
+        "creator_id": "79780029",
+        "creator_name": "kayohhbee",
+        "video_id": "1549784278",
+        "game_id": "950189725",
+        "language": "en",
+        "title": "THAT KILLED ME",
+        "view_count": 67,
+        "created_at": "2022-08-02T03:05:08Z",
+        "thumbnail_url": "https://clips-media-assets2.twitch.tv/119Wyk9ZnA8qdHarZ8HeQg/46913066253-offset-1406-preview-480x272.jpg",
+        "duration": 26,
+        "vod_offset": 1382
+      }
+    }
+  ]
+}

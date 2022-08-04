@@ -1,0 +1,50 @@
+.broadcaster {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  top: 0;
+  height: 100px;
+  width: auto;  
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 0 10px 10px 0;
+  background-color: rgb(100, 65, 165);
+  font-size: 16px;
+  opacity: 0;
+  animation-duration: 3.5s;
+  animation-name: slideright;
+}
+
+.broadcaster h1 {
+  color: white
+}
+
+.broadcaster .icon {
+  color: white;
+  font-size: 60px;
+  margin-right: 20px;
+}
+
+@keyframes slideright {
+  0% {
+    left: -600px;
+    width: auto;
+    opacity: 1;
+  }
+
+  50% {
+    left: 0;
+    width: auto;
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

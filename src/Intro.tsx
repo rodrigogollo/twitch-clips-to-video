@@ -1,17 +1,23 @@
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTwitch } from "@fortawesome/free-brands-svg-icons";
+
+import { Audio } from "remotion";
+import audio from "../intro.mp3";
+import './Intro.css';
+
 export const Intro = () => {
 	return (
-    <div style={{
-      display: 'flex',
-      textAlign: 'center',
-      alignContent: 'center',
-      backgroundColor: 'purple',
-      width: '100%',
-      height: '100%'
-      }} >
-      <h1 style={{
-        color: 'white',
-      }}>TWITCH DAILY CLIPS</h1>
+    <div className="intro">
+      <h1>Twitch Daily Clips</h1>
+      <FontAwesomeIcon className="icon" icon={faTwitch} />
+      
+      <Audio
+        src={audio}
+        startFrom={0} // if composition is 30fps, then it will start at 15s
+        endAt={120} // if composition is 30fps, then it will end at 18s
+        volume={0.2}
+      />
     </div>
   );
 };

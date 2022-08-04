@@ -1,0 +1,47 @@
+.intro{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(145, 70, 255);
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.intro > h1 {
+  color: white;
+  font-size: 100px;
+  margin: 50px;
+  animation-duration: 3.5s;
+  animation-name: slidein;
+}
+
+.intro .icon {
+  color: white;
+  font-size: 250px;
+  animation-duration: 3.5s;
+  animation-name: grow;
+}
+
+@keyframes grow {
+  from {
+    font-size: 0
+  }
+  to {
+    font-size: 250px;
+  }
+}
+
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%;
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}

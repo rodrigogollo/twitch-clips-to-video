@@ -1,5 +1,6 @@
 const https = require('https'); // or 'https' for https:// URLs
 const fs = require('fs');
+const path = require('path');
 var ffmpeg = require('fluent-ffmpeg');
 const twitchGets = require('./twitchGets');
 const cliProgress = require('cli-progress');
@@ -14,6 +15,9 @@ const { asyncWrapper } = require('../utils');
 // }, cliProgress.Presets.legacy);
 
 async function makeVideo() {
+
+  asyncWrapper(clearFolder(__dirname + `/../downloads/`));
+
   let today = new Date();
   let yesterday = new Date();
   let daysBefore = new Date();
@@ -31,10 +35,10 @@ async function makeVideo() {
   week.setHours(0,0,0,0);
   month.setHours(0,0,0,0);
 
-  // let gameData = await twitchGets.getGameByName('slots');
-  // let getClipData = await twitchGets.getClipsByGame(gameData.data[0].id, 100, yesterday, today);
-  let streamerData = await twitchGets.getUserByLogin('xqc');
-  let getClipData = await twitchGets.getClipsByBroadcaster(streamerData.data[0].id, 100, yesterday, today);
+  let gameData = await twitchGets.getGameByName('multiversus');
+  let getClipData = await twitchGets.getClipsByGame(gameData.data[0].id, 100, yesterday, today);
+  // let streamerData = await twitchGets.getUserByLogin('pokelawls');
+  // let getClipData = await twitchGets.getClipsByBroadcaster(streamerData.data[0].id, 100, yesterday, today);
 
   let durationAllVideos = 0;
 
@@ -49,15 +53,17 @@ async function makeVideo() {
   // )))
 
   let topClips = clipsFiltered.slice(0, 15)
-  console.log(topClips)
-
-  let clipList = {}; 
+  let clipList = []; 
 
   topClips.forEach((item, i) => {
     durationAllVideos += item.duration;
     let filename = `clip${i+1}`;
     let URL_CLIP = item.thumbnail_url.replace('-preview-480x272.jpg', '.mp4');
-    Object.assign(clipList, {[filename]: `${filename}.mp4`})
+
+    clipList.push({
+      video: `${filename}.mp4`,
+      data: item
+    })
 
     //Object.assign(progressBarList, {[filename]: multibar.create(100, 0)})
 
@@ -70,6 +76,7 @@ async function makeVideo() {
 }
 
 function downloadClipLocal (url, filename){
+  
   fs.mkdir(__dirname + `/../downloads/`, { recursive: true }, (err) => {
     if (err) throw err;
   });
@@ -140,6 +147,18 @@ async function getVideos() {
     top10URLS.push(URL_CLIP);
   })
   return top10URLS;
+}
+
+function clearFolder(directory) {
+  fs.readdir(directory, (err, files) => {
+    if (err) throw err;
+  
+    for (const file of files) {
+      fs.unlink(path.join(directory, file), err => {
+        if (err) throw err;
+      });
+    }
+  });
 }
 
 module.exports = {

@@ -1,74 +1,31 @@
-import { useCurrentFrame, useVideoConfig, Sequence, continueRender, delayRender } from "remotion";
-import { getVideoMetadata } from "@remotion/media-utils";
-import { Clip } from "./Clip";
 import { ClipInfo } from "./ClipInfo";
-import { Intro } from "./Intro";
-import { Outro } from "./Outro";
-import { useEffect, useState } from "react";
+import { Series } from "remotion";
+import { Clip } from "./Clip";
 
-import { clips as clipList } from '../downloads/clips.json';
+export const ClipsList: React.FC <{clipList: any, transition: number }>= ({clipList, transition}) => {
 
-export const ClipsList: React.FC <{
-  clipList: any
-}>= ({clipList}) => {
-
-  const clip1 = require(__dirname + '/../downloads/' + clipList.clip1)
-  const [clipListArray, setClipListArray] = useState([{
-    id: '',
-    clipName: '',
-    duration: 1
-  }])
-  const transition = 120;
-
-	useEffect(() => {
-
-    async function createClipListArray() {
-      let clipArray = [];
-
-      for(const [key, value] of Object.entries(clipList)){
-        let currentClipObj = {}
-        let currentVideo = require('../downloads/' + value)
-        let duration = await getVideoMetadata(currentVideo).then(({ durationInSeconds }) => (Math.round(durationInSeconds * 30)))
-        clipArray.push({
-          id: [key],
-          clipName: currentVideo,
-          duration: duration,
-        })
-      }
-      return clipArray
-    }
-    createClipListArray().then(result => setClipListArray(result))
-  }, [clipListArray])
-    
-	return (
+  const listItems: any = clipList.map((clip:any, i:number, origin:any) => {
+    let duration = clip.duration;
+    if(i > 0) duration += origin.slice(0, i).reduce((acc:number, obj:any) => (acc + obj.duration), 0) + transition * (i+1)
+    return (
+      <div key={clip.id + "_div"}>
+        <Series.Sequence  key={clip.id + "_seq_info"} durationInFrames={transition}>
+          <ClipInfo key={clip.id + "_info"} broadcaster={'xqc'} title={'funny title'} date={'2022-01-01'} creator={'roddygood'}/>
+        </Series.Sequence>
+        
+        {/* <Series.Sequence key={clip.id + "_seq_clip"} durationInFrames={clip.duration}>
+          <Clip key={clip.id} clip={clip.clipName} />
+        </Series.Sequence> */}
+      </ div>
+    )
+  })
+  
+  return (
     <>
-      <Sequence from={0} durationInFrames={transition}>
-        <Intro />
-      </Sequence>
-    {
-      clipListArray.map((clip, i, origin) => {
-        let duration = clip.duration;
-        let transitionStart = transition;
-        if(i > 0) {
-          duration += origin.slice(0, i).reduce((acc, obj) => (acc + obj.duration), 0) + transition * (i+1)
-          transitionStart += origin.slice(0, i).reduce((acc, obj) => (acc + obj.duration), 0) + transition * i;
-        }
-        return (
-          <div key={clip.id + "_div"}>
-            <Sequence  key={clip.id + "_seq_info"} from={transitionStart} durationInFrames={transition + 5}>
-              <ClipInfo key={clip.id + "_info"}/>
-            </Sequence>
-            
-            <Sequence key={clip.id + "_seq_clip"} from={transitionStart + transition} durationInFrames={clip.duration}>
-              <Clip  key={clip.id} clip={clip.clipName} volume={0.1}/>
-            </Sequence> 
-          </ div>
-        )
-      })
-    }
-      <Sequence from={0} durationInFrames={transition}>
-        <Outro />
-      </Sequence>
+      <h1 style={{color: 'pink'}}>hello clips list</h1>
     </>
-	);
+  )
+
+  
+
 };
