@@ -11,9 +11,9 @@ export const ClipInfo: React.FC<{
 }> = ({broadcaster, title, date, creator}) => {
 	return (
     <div className="clip-info">
-      <h1>{broadcaster} - {title}</h1>
+      <h1>{broadcaster}: "{title}"</h1>
       <h2>Created by: {creator}</h2>
-      <p>{date}</p>
+      <h2>{date}</h2>
       <Audio
         src={audio}
         startFrom={480} // if composition is 30fps, then it will start at 15s

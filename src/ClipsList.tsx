@@ -1,31 +1,32 @@
 import { ClipInfo } from "./ClipInfo";
-import { Series } from "remotion";
+import { Sequence } from "remotion";
 import { Clip } from "./Clip";
 
 export const ClipsList: React.FC <{clipList: any, transition: number }>= ({clipList, transition}) => {
 
-  const listItems: any = clipList.map((clip:any, i:number, origin:any) => {
-    let duration = clip.duration;
-    if(i > 0) duration += origin.slice(0, i).reduce((acc:number, obj:any) => (acc + obj.duration), 0) + transition * (i+1)
-    return (
-      <div key={clip.id + "_div"}>
-        <Series.Sequence  key={clip.id + "_seq_info"} durationInFrames={transition}>
-          <ClipInfo key={clip.id + "_info"} broadcaster={'xqc'} title={'funny title'} date={'2022-01-01'} creator={'roddygood'}/>
-        </Series.Sequence>
-        
-        {/* <Series.Sequence key={clip.id + "_seq_clip"} durationInFrames={clip.duration}>
-          <Clip key={clip.id} clip={clip.clipName} />
-        </Series.Sequence> */}
-      </ div>
-    )
-  })
-  
   return (
     <>
-      <h1 style={{color: 'pink'}}>hello clips list</h1>
+    { clipList ? 
+          clipList.map((clip:any, i:number, origin:any) => {
+            let duration = transition
+            let transitionFrom = transition;
+            if(i > 0) {
+              duration += Math.round(origin.slice(0, i).reduce((acc:number, obj:any) => (acc + obj.data.duration), 0) * 30); + transition * (i+1)
+              transitionFrom += Math.round(origin.slice(0, i).reduce((acc:number, obj:any) => (acc + obj.data.duration), 0) * 30); + transition * (i+1);
+            }
+            return (
+              <div key={clip.data.id + "_div"}>
+                <Sequence key={clip.data.id + "_seq_info"} from={transitionFrom}  durationInFrames={transition}>
+                  <ClipInfo key={clip.data.id + "_info"} broadcaster={clip.data.broadcaster_name} title={clip.data.title} date={clip.data.created_at.substring(0, 10)} creator={clip.data.creator_name}/>
+                </Sequence>  
+                <Sequence key={clip.data.id + "_seq_clip"} from={duration + transitionFrom} durationInFrames={Math.round(clip.data.duration * 30)}>
+                  <Clip key={clip.data.id} clip={clip.video} />
+                </Sequence>
+              </div>
+            ) 
+        }
+      ) : null
+    }
     </>
   )
-
-  
-
 };

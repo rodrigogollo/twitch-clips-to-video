@@ -1,6 +1,7 @@
-import { continueRender, delayRender, Series } from "remotion";
+import { continueRender, delayRender, Sequence } from "remotion";
 import { useState, useEffect, useCallback } from "react";
 import { getVideoMetadata } from "@remotion/media-utils";
+const { asyncWrapper} = require('../utils');
 
 import clipsJSON from '../downloads/clips.json';
 import { Intro } from "./Intro";
@@ -8,54 +9,51 @@ import { Outro } from "./Outro";
 import { ClipsList } from "./ClipsList";
 import { transpileModule } from "typescript";
 
-export const Video: React.FC = () => {
+export const Video: React.FC <{clipList: any, totalDuration: any }>= ({ clipList, totalDuration }) => {
 
   const [handle] = useState(() => delayRender());
-  const [duration, setDuration] = useState(1);
-  const [clipList, setClipList] = useState(null);
+  const [duration, setDuration] = useState(null);
   const transition = 120;
   
-  const fetchData = useCallback(async () => {
+  // const fetchData = useCallback(async () => {
     
-    let totalDuration = 1;
-    clipsJSON.clips.map(async (clip: any) => {
-      let currentVideo = await require('../downloads/' + clip.video);
-      let duration = await getVideoMetadata(currentVideo).then(({ durationInSeconds }) => (Math.round(durationInSeconds * 30)));
-      await Object.assign(clip, {
-        duration: duration,
-        id: clip.video.split('.')[0],
-        clipName: currentVideo
-      });
-      totalDuration += duration;
-    })
+  //   let totalDuration = 1;
 
-    setDuration(totalDuration);
-    setClipList(clipsJSON.clips);
-    continueRender(handle);
-  }, [handle]);
+  //   for await (const clip of clipsJSON.clips){
+  //     let currentVideo = await require('../downloads/' + clip.video);
+  //     let duration = await getVideoMetadata(currentVideo).then(({ durationInSeconds }) => (Math.round(durationInSeconds * 30)));
+  //     Object.assign(clip, {
+  //       duration: duration,
+  //       id: clip.video.split('.')[0],
+  //       clipName: currentVideo
+  //     });
+  //     totalDuration += duration;
+  //     break;
+  //   }
 
-  useEffect(() => {
-    fetchData();
-  }, [fetchData])
+  //   setDuration(totalDuration);
+  //   setClipList(clipsJSON.clips);
+  //   continueRender(handle);
+  // }, [handle]);
+
+  // useEffect(() => {
+  //   fetchData();
+  // }, [fetchData])
 
 
 	return (
     <>
-    { duration > 1 ? (
-        <Series>
-          {/* <Series.Sequence durationInFrames={transition + 15}>
+    { clipList ? (
+        <>
+          <Sequence from={0} durationInFrames={transition + 15}>
             <Intro />
-          </Series.Sequence> */}
-          <Series.Sequence durationInFrames={duration}>
-            {/* <ClipsList clipList={clipList} transition={transition} /> */}
-            <h1>{duration}</h1>
-          </Series.Sequence>
-          {/* <Series.Sequence durationInFrames={transition}>
+          </Sequence>
+          <ClipsList clipList={clipList} transition={transition} />
+          {/* <Sequence from={transition + 15 + totalDuration} durationInFrames={transition}>
             <Outro />
-          </Series.Sequence> */}
-        </ Series>
-          ) : null
- }
+          </Sequence> */}
+        </>
+    ) : null }
     </>
 	);
 };

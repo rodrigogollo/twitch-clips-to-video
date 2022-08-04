@@ -9,30 +9,30 @@ export const RemotionVideo: React.FC = () => {
   const [handle] = useState(() => delayRender());
   const [duration, setDuration] = useState(1000);
 
-  // const fetchData = useCallback(async () => {
-  //   let totalDuration = 1;
-  //   clipsJSON.clips.map(async (clip: any) => {
-  //     let currentVideo = require('../downloads/' + clip.video);
-  //     let duration = await getVideoMetadata(currentVideo).then(({ durationInSeconds }) => (Math.round(durationInSeconds * 30)));
-  //     totalDuration += duration;
-  //   })
-  //   setDuration(totalDuration);
-  //   continueRender(handle);
-  // }, [handle]);
+  const fetchData = useCallback(async () => {
+    let totalDuration = 1;
+    
+    for await (const clip of clipsJSON.clips) {
+      let duration = Math.round(clip.data.duration * 30);
+      totalDuration += duration;
+    }
+    setDuration(totalDuration);
+    continueRender(handle);
+  }, [handle]);
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, [fetchData])
+  useEffect(() => {
+    fetchData();
+  }, [fetchData])
 
   return (
 			<Composition
         id="MyVideo"
         component={Video}
-        durationInFrames={duration}
+        durationInFrames={duration + 240}
         fps={30}
         width={1920}
         height={1080}
-        defaultProps={{}}
+        defaultProps={{ clipList: clipsJSON.clips, totalDuration: duration }}
       />
 	);
 };

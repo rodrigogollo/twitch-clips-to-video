@@ -1,12 +1,16 @@
 .clip-info {
   display: flex;
+  flex-direction: column;
   text-align: center;
   align-items: center;
+  justify-content: center;
   background-color: rgb(100, 65, 165);
   width: 100%;
-  height: 100%
+  height: 100%;
+  margin: 0 auto;
 }
 
-.clip-info h1 {
-  color: white,
+.clip-info h1, h2 {
+  color: white;
+  font-size: 5em;
 }
