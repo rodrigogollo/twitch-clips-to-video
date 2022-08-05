@@ -7,7 +7,7 @@
     "build": "remotion render src/index.tsx MyVideo out/video.mp4",
     "upgrade": "remotion upgrade",
     "test": "eslint src --ext ts,tsx,js,jsx && tsc",
-    "makevideo": "npx run-func server/index.js makeVideo"
+    "makevideo": "npx run-func server/index.js makeVideo --func=broadcaster --name=moonmoon --size=15 --date=yesterday"
   },
   "repository": {},
   "license": "UNLICENSED",
@@ -23,6 +23,7 @@
     "eslint": "^8.14.0",
     "express": "^4.18.1",
     "fluent-ffmpeg": "^2.1.2",
+    "minimist": "^1.2.6",
     "prettier": "^2.2.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",

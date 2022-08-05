@@ -16,7 +16,7 @@
 .intro > h1 {
   color: white;
   font-size: 100px;
-  margin: 50px;
+  margin: 50px 0;
   animation-duration: 3.5s;
   animation-name: slidein;
 }

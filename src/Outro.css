@@ -42,7 +42,7 @@
   margin: 0 10%;
 }
 
-.outro h1, h2 {
+.outro > h1, .outro > h2 {
   color: white;
   font-size: 5em;
   opacity: 0;

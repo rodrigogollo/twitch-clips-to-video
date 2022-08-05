@@ -10,7 +10,36 @@
   margin: 0 auto;
 }
 
-.clip-info h1, h2 {
+.clip-info > h1, .clip-info > h2 {
   color: white;
   font-size: 5em;
+  opacity: 0;
+  animation-duration: 2s;
+  animation-name: show;
+  animation-fill-mode: forwards;
+}
+
+.clip-info > h1 {
+  animation-delay: 0.5s;
+  margin: 15% 0;
+}
+
+.clip-info > h2 {
+  animation-delay: 1s;
+
+}
+
+.clip-info span {
+  color: rgb(233, 172, 92);
+}
+
+
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }

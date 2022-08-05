@@ -6,6 +6,9 @@ const twitchGets = require('./twitchGets');
 const cliProgress = require('cli-progress');
 const { asyncWrapper } = require('../utils');
 
+const args = require('minimist')(process.argv.slice(2));
+
+// node index.js func= (game || broadcaster) name= (csgo || imaqtpie) size=10 (clips size) date= (day, week, month)
 
 // let progressBarList = {}
 
@@ -20,25 +23,47 @@ async function makeVideo() {
 
   let today = new Date();
   let yesterday = new Date();
-  let daysBefore = new Date();
+  let twodays = new Date();
   let week = new Date();
   let month = new Date();
 
   yesterday.setDate(today.getDate() - 1);
-  daysBefore.setDate(today.getDate() - 2);
+  twodays.setDate(today.getDate() - 2);
   week.setDate(today.getDate() - 7);
   month.setMonth(today.getMonth() - 1);
 
   today.setHours(0,0,0,0);
   yesterday.setHours(0,0,0,0);
-  daysBefore.setHours(0,0,0,0);
+  twodays.setHours(0,0,0,0);
   week.setHours(0,0,0,0);
   month.setHours(0,0,0,0);
 
-  let gameData = await twitchGets.getGameByName('multiversus');
-  let getClipData = await twitchGets.getClipsByGame(gameData.data[0].id, 100, week, today);
-  // let streamerData = await twitchGets.getUserByLogin('pokelawls');
-  // let getClipData = await twitchGets.getClipsByBroadcaster(streamerData.data[0].id, 100, yesterday, today);
+  let gameData, getClipData;
+
+  let func = args.func || 'game';
+  let name = args.name || 'csgo';
+  let size = args.size || 15;
+  let date = args.date;
+
+  switch(date) {
+    case 'day': date = yesterday
+    break;
+    case 'twodays': date = twodays
+    break;
+    case 'week': date = week
+    break;
+    case 'month': date = month
+    break;
+    default: date = yesterday
+  }
+
+  if(func == 'game') {
+    gameData = await twitchGets.getGameByName(name);
+    getClipData = await twitchGets.getClipsByGame(gameData.data[0].id, 100, date, today);
+  } else {
+    streamerData = await twitchGets.getUserByLogin(name);
+    getClipData = await twitchGets.getClipsByBroadcaster(streamerData.data[0].id, 100, date, today);
+  }
 
   let durationAllVideos = 0;
 
@@ -46,13 +71,17 @@ async function makeVideo() {
     item.language == 'en' 
     && item.duration >= 25
   ))
+  let uniqueStreamerClips;
 
-  // let uniqueStreamerClips = clipsFiltered.filter((value, index, self) =>
-  //   index === self.findIndex((t) => (
-  //     t.broadcaster_name === value.broadcaster_name
-  // )))
+  if(func != 'game'){
+    uniqueStreamerClips = clipsFiltered
+  } else {
+    uniqueStreamerClips = clipsFiltered.filter((value, index, self) => index === self.findIndex((t) => (
+      t.broadcaster_name === value.broadcaster_name
+    )))
+  }
 
-  let topClips = clipsFiltered.slice(0, 15)
+  let topClips = uniqueStreamerClips.slice(0, size)
   let clipList = []; 
 
   topClips.forEach((item, i) => {

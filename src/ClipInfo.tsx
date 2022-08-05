@@ -18,14 +18,14 @@ const opacity = interpolate(frame, [durationInFrames - 10, durationInFrames], [1
     <div className="clip-info" style={{
       opacity: opacity
     }}>
-      <h1>{broadcaster}: "{title}"</h1>
-      <h2>Created by: {creator}</h2>
+      <h1>"{title}"</h1>
+      <h2>Created by: <span>{creator}</span></h2>
       <h2>{date}</h2>
       <Audio
         src={audio}
         startFrom={5400} // if composition is 30fps, then it will start at 15s
         endAt={5600} // if composition is 30fps, then it will end at 18s
-        volume={0.4}
+        volume={0.2}
       />
     </div>
     
