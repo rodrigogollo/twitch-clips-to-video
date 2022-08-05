@@ -1,5 +1,5 @@
 
-import { Audio } from "remotion";
+import { interpolate, useCurrentFrame, useVideoConfig, Audio } from "remotion";
 import audio from "../clip.mp3";
 import './ClipInfo.css';
 
@@ -9,8 +9,15 @@ export const ClipInfo: React.FC<{
   date: string,
   creator: string
 }> = ({broadcaster, title, date, creator}) => {
+ 
+const frame = useCurrentFrame();
+const { durationInFrames } = useVideoConfig();
+const opacity = interpolate(frame, [durationInFrames - 10, durationInFrames], [1, 0])
+
 	return (
-    <div className="clip-info">
+    <div className="clip-info" style={{
+      opacity: opacity
+    }}>
       <h1>{broadcaster}: "{title}"</h1>
       <h2>Created by: {creator}</h2>
       <h2>{date}</h2>
