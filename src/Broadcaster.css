@@ -13,7 +13,8 @@
   background-color: rgb(100, 65, 165);
   font-size: 16px;
   opacity: 0;
-  animation-duration: 3.5s;
+  animation-delay: 1s;
+  animation-duration: 5s;
   animation-name: slideright;
 }
 
@@ -40,7 +41,7 @@
     opacity: 1;
   }
 
-  80% {
+  90% {
     opacity: 1;
   }
 

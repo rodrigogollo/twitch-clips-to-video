@@ -13,14 +13,14 @@ export const Video: React.FC <{clipList: any, totalDuration: any }>= ({ clipList
 
   const [handle] = useState(() => delayRender());
   const [duration, setDuration] = useState(1);
-  const transition = 120;
+  const transition = 240;
   
   const fetchData = useCallback(async () => {
     
     let totalDuration = 0;
 
     for await (const clip of clipsJSON.clips){
-      totalDuration += (Math.round(clip.data.duration * 30) + transition);
+      totalDuration += (Math.round(clip.data.duration * 60) + transition);
       break;
     }
 

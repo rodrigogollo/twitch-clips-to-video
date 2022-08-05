@@ -14,8 +14,8 @@ export const RemotionVideo: React.FC = () => {
     let totalDuration = 1;
     
     for await (const clip of clipsJSON.clips) {
-      let duration = Math.round(clip.data.duration * 30);
-      totalDuration += duration + 120;
+      let duration = Math.round(clip.data.duration * 60);
+      totalDuration += duration + 240;
     }
     setDuration(totalDuration);
     continueRender(handle);
@@ -29,8 +29,8 @@ export const RemotionVideo: React.FC = () => {
 			<Composition
         id="MyVideo"
         component={Video}
-        durationInFrames={duration + 360} //videos duration + intro(120) + outro(360)
-        fps={30}
+        durationInFrames={duration + 720} //videos duration + intro(120) + outro(360)
+        fps={60}
         width={1920}
         height={1080}
         defaultProps={{ clipList: clipsJSON.clips, totalDuration: duration }}

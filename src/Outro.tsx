@@ -22,8 +22,8 @@ export const Outro = () => {
       <h1>Like {'&'} Subscribe</h1>
       <Audio
         src={audio}
-        startFrom={1110} // if composition is 30fps, then it will start at 15s
-        endAt={1380} // if composition is 30fps, then it will end at 18s
+        startFrom={1110*2} // if composition is 30fps, then it will start at 15s
+        endAt={1380*2} // if composition is 30fps, then it will end at 18s
         volume={interpolate(frame, [0, 60], [0, 0.15], {
           extrapolateLeft: "clamp",
         })}
