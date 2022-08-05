@@ -36,7 +36,7 @@ async function makeVideo() {
   month.setHours(0,0,0,0);
 
   let gameData = await twitchGets.getGameByName('multiversus');
-  let getClipData = await twitchGets.getClipsByGame(gameData.data[0].id, 100, yesterday, today);
+  let getClipData = await twitchGets.getClipsByGame(gameData.data[0].id, 100, week, today);
   // let streamerData = await twitchGets.getUserByLogin('pokelawls');
   // let getClipData = await twitchGets.getClipsByBroadcaster(streamerData.data[0].id, 100, yesterday, today);
 

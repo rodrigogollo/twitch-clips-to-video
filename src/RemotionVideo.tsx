@@ -4,6 +4,7 @@ import { getVideoMetadata } from "@remotion/media-utils";
 
 import { Video } from "./Video";
 import clipsJSON from '../downloads/clips.json';
+import { transform } from "typescript";
 
 export const RemotionVideo: React.FC = () => {
   const [handle] = useState(() => delayRender());
@@ -14,7 +15,7 @@ export const RemotionVideo: React.FC = () => {
     
     for await (const clip of clipsJSON.clips) {
       let duration = Math.round(clip.data.duration * 30);
-      totalDuration += duration;
+      totalDuration += duration + 120;
     }
     setDuration(totalDuration);
     continueRender(handle);
@@ -28,7 +29,7 @@ export const RemotionVideo: React.FC = () => {
 			<Composition
         id="MyVideo"
         component={Video}
-        durationInFrames={duration + 240}
+        durationInFrames={duration + 360} //videos duration + intro(120) + outro(360)
         fps={30}
         width={1920}
         height={1080}

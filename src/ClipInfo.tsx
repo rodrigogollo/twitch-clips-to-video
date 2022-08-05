@@ -16,9 +16,9 @@ export const ClipInfo: React.FC<{
       <h2>{date}</h2>
       <Audio
         src={audio}
-        startFrom={480} // if composition is 30fps, then it will start at 15s
-        endAt={600} // if composition is 30fps, then it will end at 18s
-        volume={0.5}
+        startFrom={5400} // if composition is 30fps, then it will start at 15s
+        endAt={5600} // if composition is 30fps, then it will end at 18s
+        volume={0.4}
       />
     </div>
     

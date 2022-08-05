@@ -12,46 +12,38 @@ import { transpileModule } from "typescript";
 export const Video: React.FC <{clipList: any, totalDuration: any }>= ({ clipList, totalDuration }) => {
 
   const [handle] = useState(() => delayRender());
-  const [duration, setDuration] = useState(null);
+  const [duration, setDuration] = useState(1);
   const transition = 120;
   
-  // const fetchData = useCallback(async () => {
+  const fetchData = useCallback(async () => {
     
-  //   let totalDuration = 1;
+    let totalDuration = 0;
 
-  //   for await (const clip of clipsJSON.clips){
-  //     let currentVideo = await require('../downloads/' + clip.video);
-  //     let duration = await getVideoMetadata(currentVideo).then(({ durationInSeconds }) => (Math.round(durationInSeconds * 30)));
-  //     Object.assign(clip, {
-  //       duration: duration,
-  //       id: clip.video.split('.')[0],
-  //       clipName: currentVideo
-  //     });
-  //     totalDuration += duration;
-  //     break;
-  //   }
+    for await (const clip of clipsJSON.clips){
+      totalDuration += (Math.round(clip.data.duration * 30) + transition);
+      break;
+    }
 
-  //   setDuration(totalDuration);
-  //   setClipList(clipsJSON.clips);
-  //   continueRender(handle);
-  // }, [handle]);
+    setDuration(totalDuration);
+    continueRender(handle);
+  }, [handle]);
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, [fetchData])
+  useEffect(() => {
+    fetchData();
+  }, [fetchData])
 
 
 	return (
     <>
     { clipList ? (
         <>
-          <Sequence from={0} durationInFrames={transition + 15}>
+          <Sequence from={0} durationInFrames={transition}>
             <Intro />
           </Sequence>
           <ClipsList clipList={clipList} transition={transition} />
-          {/* <Sequence from={transition + 15 + totalDuration} durationInFrames={transition}>
+          <Sequence from={transition + totalDuration} durationInFrames={transition * 3}>
             <Outro />
-          </Sequence> */}
+          </Sequence>
         </>
     ) : null }
     </>

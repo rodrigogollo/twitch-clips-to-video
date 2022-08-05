@@ -8,6 +8,9 @@
   width: 100%;
   height: 100%;
   margin: 0 auto;
+  animation-duration: 4s;
+  animation-name: colors;
+  animation-fill-mode: forwards;
 }
 
 .intro > h1 {
@@ -43,5 +46,18 @@
   to {
     margin-left: 0%;
     width: 100%;
+  }
+}
+
+
+@keyframes colors {
+  0% {
+    background-color: rgb(145, 70, 255);
+  }
+  50% {
+    background-color: rgb(164, 120, 230);
+  }
+  100% {
+    background-color: rgb(100, 65, 165);
   }
 }
