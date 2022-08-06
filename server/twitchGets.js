@@ -1,5 +1,6 @@
 const axios = require('axios').default;
 require('dotenv').config({path:__dirname+'/../.env'})
+const { asyncWrapper } = require('../utils');
 
 const token = require('./token');
 
@@ -48,6 +49,7 @@ async function getUserByLogin(login) {
 
 async function getClipsByBroadcaster(broadcaster_id, first, started_at, ended_at) {
   if(ACCESS_TOKEN == undefined) ACCESS_TOKEN = await token.getToken()
+  
   try {
     let res = await axios.get('https://api.twitch.tv/helix/clips', {
       headers: {
@@ -69,24 +71,38 @@ async function getClipsByBroadcaster(broadcaster_id, first, started_at, ended_at
   }
 }
 
-async function getClipsByGame(game_id, first, started_at, ended_at) {
-  if(ACCESS_TOKEN == undefined) ACCESS_TOKEN = await token.getToken()
+async function getClipsByGame(game_id, first, started_at, ended_at, cursor=null, results=[]) {
+
+  if(ACCESS_TOKEN == undefined) ACCESS_TOKEN = await token.getToken();
+
   try {
-    let res = await axios.get('https://api.twitch.tv/helix/clips', {
-      headers: {
-        Authorization: `Bearer ${ACCESS_TOKEN} `,
-        'Client-Id': process.env.CLIENT_ID
-      },
-      params: {
+      let parameters = {
         game_id,
         first,
         started_at,
-        ended_at
+        ended_at,
       }
-    })
-    if(res.status == 200) {
-      return res.data;
-    }
+
+      if(cursor != null){
+        Object.assign(parameters, {after: cursor});
+      } 
+
+      let res = await axios.get('https://api.twitch.tv/helix/clips', {
+        headers: {
+          Authorization: `Bearer ${ACCESS_TOKEN} `,
+          'Client-Id': process.env.CLIENT_ID
+        },
+        params: parameters
+      })
+
+      if(res.status == 200) {
+        results.push(res.data.data);
+      }
+
+      if(cursor != null && res.data.pagination.cursor != cursor) {
+        return getClipsByGame(game_id, first, started_at, ended_at, res.data.pagination.cursor, results);
+      }
+    return {data: results.flat()};
   } catch (error) {
     console.log(error);
   }

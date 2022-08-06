@@ -8,6 +8,7 @@ const { asyncWrapper } = require('../utils');
 
 const args = require('minimist')(process.argv.slice(2));
 
+console.log(args.name)
 // node index.js func= (game || broadcaster) name= (csgo || imaqtpie) size=10 (clips size) date= (day, week, month)
 
 // let progressBarList = {}
@@ -58,6 +59,7 @@ async function makeVideo() {
   }
 
   if(func == 'game') {
+    if(args.name.includes('just')) name = 'just chatting';
     gameData = await twitchGets.getGameByName(name);
     getClipData = await twitchGets.getClipsByGame(gameData.data[0].id, 100, date, today);
   } else {
@@ -67,9 +69,10 @@ async function makeVideo() {
 
   let durationAllVideos = 0;
 
+  console.log('dados:', getClipData.data)
+
   let clipsFiltered = getClipData.data.filter(item => (
-    item.language == 'en' 
-    && item.duration >= 25
+    item.duration >= 25
   ))
   let uniqueStreamerClips;
 
@@ -81,10 +84,10 @@ async function makeVideo() {
     )))
   }
 
-  let topClips = uniqueStreamerClips.slice(0, size)
+  let topClips = uniqueStreamerClips.slice(0, size);
   let clipList = []; 
 
-  topClips.forEach((item, i) => {
+  topClips.reverse().forEach((item, i) => {
     durationAllVideos += item.duration;
     let filename = `clip${i+1}`;
     let URL_CLIP = item.thumbnail_url.replace('-preview-480x272.jpg', '.mp4');
@@ -151,32 +154,32 @@ function writeClipListToJSON(clipList){
 
 //makeVideo()
 
-async function getVideos() {
-  let today = new Date();
-  let yesterday = new Date();
-  yesterday.setDate(today.getDate() - 1);
-  let gameData = await twitchGets.getGameByName('multiversus');
-  let getClipData = await twitchGets.getClipsByGame(gameData.data[0].id, 100, yesterday, today);
+// async function getVideos() {
+//   let today = new Date();
+//   let yesterday = new Date();
+//   yesterday.setDate(today.getDate() - 1);
+//   let gameData = await twitchGets.getGameByName('multiversus');
+//   let getClipData = await twitchGets.getClipsByGame(gameData.data[0].id, 100, yesterday, today);
 
-  let clipsEN = getClipData.data.filter(item => item.language == 'en')
+//   let clipsEN = getClipData.data.filter(item => item.language === 'pt-br')
 
-  let uniqueStreamerClips = clipsEN.filter((value, index, self) =>
-    index === self.findIndex((t) => (
-      t.broadcaster_name === value.broadcaster_name
-  )))
+//   let uniqueStreamerClips = clipsEN.filter((value, index, self) =>
+//     index === self.findIndex((t) => (
+//       t.broadcaster_name === value.broadcaster_name
+//   )))
 
-  let top10Clips = uniqueStreamerClips.slice(0, 20)
+//   let top10Clips = uniqueStreamerClips.slice(0, 20)
 
-  let top10URLS = [];
+//   let top10URLS = [];
 
-  top10Clips.forEach((item, i) => {
-    let filename = `clip${i+1}`;
-    let URL_CLIP = item.thumbnail_url.replace('-preview-480x272.jpg', '.mp4');
+//   top10Clips.forEach((item, i) => {
+//     let filename = `clip${i+1}`;
+//     let URL_CLIP = item.thumbnail_url.replace('-preview-480x272.jpg', '.mp4');
   
-    top10URLS.push(URL_CLIP);
-  })
-  return top10URLS;
-}
+//     top10URLS.push(URL_CLIP);
+//   })
+//   return top10URLS;
+// }
 
 function clearFolder(directory) {
   fs.readdir(directory, (err, files) => {
