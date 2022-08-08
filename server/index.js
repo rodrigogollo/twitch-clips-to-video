@@ -44,7 +44,7 @@ async function makeVideo() {
   let func = args.func || 'game';
   let name = args.name || 'csgo';
   let size = args.size || 15;
-  let date = args.date;
+  let date = args.date || yesterday;
 
   switch(date) {
     case 'day': date = yesterday

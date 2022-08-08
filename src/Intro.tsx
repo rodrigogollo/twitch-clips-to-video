@@ -37,8 +37,8 @@ export const Intro = () => {
       
       <Audio
         src={audio}
-        startFrom={785*2} // if composition is 30fps, then it will start at 15s
-        endAt={940*2} // if composition is 30fps, then it will end at 18s
+        startFrom={1570} // if composition is 30fps, then it will start at 15s
+        endAt={1880} // if composition is 30fps, then it will end at 18s
         volume={0.2}
       />
     </div>

@@ -12,10 +12,7 @@
   border-radius: 0 10px 10px 0;
   background-color: rgb(100, 65, 165);
   font-size: 16px;
-  opacity: 0;
-  animation-delay: 1s;
-  animation-duration: 5s;
-  animation-name: slideright;
+  opacity: 1;
 }
 
 .broadcaster h1 {
@@ -26,26 +23,4 @@
   color: white;
   font-size: 60px;
   margin-right: 20px;
-}
-
-@keyframes slideright {
-  0% {
-    left: -600px;
-    width: auto;
-    opacity: 1;
-  }
-
-  50% {
-    left: 0;
-    width: auto;
-    opacity: 1;
-  }
-
-  90% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
 }
