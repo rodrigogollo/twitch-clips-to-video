@@ -23,8 +23,8 @@ const opacity = interpolate(frame, [durationInFrames - 10, durationInFrames], [1
       <h2>{date}</h2>
       <Audio
         src={audio}
-        startFrom={5400*2} // if composition is 30fps, then it will start at 15s
-        endAt={5600*2} // if composition is 30fps, then it will end at 18s
+        startFrom={10800} // if composition is 30fps, then it will start at 15s
+        endAt={11200} // if composition is 30fps, then it will end at 18s
         volume={0.2}
       />
     </div>
