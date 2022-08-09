@@ -7,7 +7,8 @@
     "build": "remotion render src/index.tsx MyVideo out/video.mp4",
     "upgrade": "remotion upgrade",
     "test": "eslint src --ext ts,tsx,js,jsx && tsc",
-    "makevideo": "npx run-func server/index.js makeVideo --func=game --name=justchatting --size=12 --date=month"
+    "makevideo": "npx run-func server/index.js makeVideo --func=game --name=justchatting --size=12 --date=month",
+    "upload": ""
   },
   "repository": {},
   "license": "UNLICENSED",
