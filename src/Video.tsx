@@ -1,13 +1,11 @@
 import { continueRender, delayRender, Sequence } from "remotion";
 import { useState, useEffect, useCallback } from "react";
-import { getVideoMetadata } from "@remotion/media-utils";
 const { asyncWrapper} = require('../utils');
 
 import clipsJSON from '../downloads/clips.json';
 import { Intro } from "./Intro";
 import { Outro } from "./Outro";
 import { ClipsList } from "./ClipsList";
-import { transpileModule } from "typescript";
 
 export const Video: React.FC <{clipList: any, totalDuration: any }>= ({ clipList, totalDuration }) => {
 

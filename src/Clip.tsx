@@ -1,4 +1,4 @@
-import { AbsoluteFill, OffthreadVideo, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Video, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { Broadcaster } from "./Broadcaster";
 
 export const Clip: React.FC<{clip: any}> = ({clip}) => {
@@ -6,17 +6,17 @@ export const Clip: React.FC<{clip: any}> = ({clip}) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
 
-  const opacityFadeInOut = interpolate(
-    frame,
-    [0, 10, durationInFrames - 20, durationInFrames], [0, 1, 1, 0]
-  );
+  // const opacityFadeInOut = interpolate(
+  //   frame,
+  //   [0, 10, durationInFrames - 20, durationInFrames], [0, 1, 1, 0]
+  // );
 
 	return (
     <AbsoluteFill style={{
-      opacity: opacityFadeInOut
+      // opacity: opacityFadeInOut
     }}>
       <Broadcaster broadcaster={clip.data.broadcaster_name} />
-      <OffthreadVideo src={source} volume={0.5} />
+      <Video src={source} volume={0.5} />
     </AbsoluteFill>
 	);
 };
