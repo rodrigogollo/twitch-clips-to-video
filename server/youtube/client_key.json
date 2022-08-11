@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "twitchclipstovideo",
+  "private_key_id": "24206f7e83463ff951e2800891338354edaec4c8",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCxeMuLCLWQzaNY\n5e81MqaPSIKUZoVhxeD6eVvbMHpnd1+SIlH+baZiNU3ujrvkjFciC6TwnNAxeuZJ\nVr/1dG65Ls9dTopy1ozZUdqYflkyP1PaHK7p7tlR7gSnMET4AqFHP1lQ1TJAKt37\n1s8lAEkXDsLTlzi2ezRlEKVdlFZO8pBBb0fxEO9FZja3oByNfXyq7ebhybz8hdav\n5IoOEmXKvxfNg68bh1N5vGzSH2VUoQjyJ4oF7aYhsBdhBDCLw4HWOTLXHeAgCVF5\nZC5/3zEXpiw1JcAogKBVmODNeOHsVKvyBcmmQXg7iGX5ChMitwm7frYrVBW64KYg\nHtaG6iKHAgMBAAECggEAONSoRYEH93NKdCzJgZ0TJj3/hrsfylP9++eB6TpocBqT\nca3o2NNPHRLZvmNZutHQEzhsXJqytq2W8fREKztaO5XIVKZSgny/BNaH7B5FvOf3\nl5ho0MOqNujD96/m3g6li7W3CcIDwfWYOU2r7rrdLPOOowhBYnooqJaAhet7CfNt\nh+RRjO3dzosgpwD1zA7PcKAlmJ2sGMh1mSDj7Rv0LpZJqH1aT1h/C1wrtkTRtOqB\nuz31IVdonEL52NWAZ6cTjrtnlZaMPN3ngGItu7LYVT/Uqz4d9sJ9NbsKWWLcdFNB\n5w6Ds39DsyCX43cBlz/92gkvZ2jXI+E5Twg2FEKNUQKBgQDVxY+vZRp1LE1RHmMB\nan81uV5MrImnSWwxrm9tlD+08XWSAIkXVNZfD6fT47md6otVQw6yMh2r+9y+UE8K\nY7PtDRSFFLQsR/qCPEQg+3etxW26zO7lNGnLdacVoHQlDwmQy6e+fUcx4taf7XwR\nofm/fmmm4jLNfJAsRoUK/pGLNwKBgQDUh4yOeVfULwfXWv7S5eWNGM7Xg3gBXyUC\nPIJ5TInItUvi2ii2CBnZc6W8+l6uCf1rWdvm3tCX/33Gf6pVE0/PElVpy+0Mzq6E\ngiQemKowR6xMKiuOn76W2xlFxRSGOdPF8mdOGSN3UvOYdZVyN+PajnsvTIrlBpT3\nnI3VT1XrMQKBgBt6UYXSERyOnUGYDlHYRpG5Sg3A/9Co92dLbLdBHw87GkmyF+0P\n0p5VfNUXqHxL8az7+Z+eIYJB1ZYA7KgBONd3nvOcPayTc/fZl0hGCpQjlH82aF69\n5ftpHBkDjupUjH44L0+k+snGxp+3/wKlN10N+ragzLbtE/sc9Wz8W+jxAoGBAKzS\n0TSmbgpoeDrijyeWtVVIoCLWkMakxSaNaBgValHhQ6VkfAiSi9qtVVBYVJe4HfCm\n8NBLzlpb875v4GYwPw0HPpe6sbhhdb7hSVfsEzERh4WkISlos4ZfAq0etzLzYUet\nd94lSRbmSJpou69WzZ3TkU6EMspM0OSN1TRpwFdxAoGBAKV5wzei2P7UOiNBCtsL\ndHn6Ht1ycrvho0jziksO5MkumPV2cZFZqaP2ckVL2sqeN89+KIgTZTWXxz1Jgz9l\nfaKaaSlWjuybUTxNQGU+X5ZLKPU5hdbZvz48l7lurZpEmQsh75sJEd2aMzaRfIvP\nCIiRirYtOUE5cHBGCi0UIQ2b\n-----END PRIVATE KEY-----\n",
+  "client_email": "twitchclipstovideo@twitchclipstovideo.iam.gserviceaccount.com",
+  "client_id": "111706286593483249516",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/twitchclipstovideo%40twitchclipstovideo.iam.gserviceaccount.com"
+}

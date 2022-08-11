@@ -4,42 +4,36 @@ const assert = require('assert');
 const { google } = require('googleapis');
 const { inherits } = require('util');
 const OAuth2 = google.auth.OAuth2;
+const args = require('minimist')(process.argv.slice(2));
 
-const KEY_FILE_PATH = './client_key.json';
-const SCOPES = ['https://www.googleapis.com/auth/youtube.upload'];
-const TOKEN_PATH = './client_oauth_token.json';
-
-const videoFilePath = '../../out/video.mp4';
+const renderURL = args.renderURL || 'https://s3.us-east-1.amazonaws.com/remotionlambda-51ph4zifjl/renders/e1vycpoer8/out.mp4';
 const thumbFilePath = '../../out/thumb.png';
+const videoFilePath = '../../out/video.mp4';
 
-// video category IDs for Youtube:
-const categoryIds = {
-  Gaming: 20,
-  Entertainment: 24,
-}
+const CLIENT_SECRETS_FILE = require('./client_secrets.json');
+const SCOPES = ['https://www.googleapis.com/auth/youtube.upload'];
 
 const init = (title, description, tags) => {
-  const auth = new google.auth.GoogleAuth({
-    keyFile: KEY_FILE_PATH,
-    scopes: SCOPES
-  })
   
-  const authClient = auth.getClient();
-  
-  const youtubeService = google.youtube({version: 'v3', auth: authClient });
-  // console.log(youtubeService)
+  const oauth2Client = new google.auth.OAuth2(
+    CLIENT_SECRETS_FILE.web.client_id,
+    CLIENT_SECRETS_FILE.web.client_secret,
+    CLIENT_SECRETS_FILE.web.redirect_uris
+  );
 
-  assert(fs.existsSync(videoFilePath));
-  assert(fs.existsSync(thumbFilePath));
+  const url = oauth2Client.generateAuthUrl({
+    access_type: 'offline',
+    scope: SCOPES
+  });
 
-  // fs.readFileSync('./client_secret.json', function processClientSecrets(err, content){
-  //   if(err){
-  //     console.log('error loading client secret file: ', err);
-  //   }
-    // Authorize a client with the loaded credentials, then call the Youtube API.
-    // authorize(JSON.parse(content), (auth) => uploadVideo(auth, title, description, tags));
+  console.log('url', url)
 
-    uploadVideo(youtubeService, auth, title, description, tags)
+  // const {tokens} = await oauth2Client.getToken(code)
+  // oauth2Client.setCredentials(tokens);
+
+  // const youtubeService = google.youtube({version: 'v3', auth: authClient });
+
+  // uploadVideo(youtubeService, auth, title, description, tags)
 };
 
 function uploadVideo(service, auth, title, description, tags) {
