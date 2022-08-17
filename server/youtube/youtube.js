@@ -1,38 +1,54 @@
 const fs = require('fs');
 const readline = require('readline');
-const assert = require('assert');
-const { google } = require('googleapis');
-const { inherits } = require('util');
-const OAuth2 = google.auth.OAuth2;
 const args = require('minimist')(process.argv.slice(2));
+require('dotenv').config({path: __dirname + '/../../.env' })
+
+const { google } = require('googleapis');
+const OAuth2 = google.auth.OAuth2;
 
 const renderURL = args.renderURL || 'https://s3.us-east-1.amazonaws.com/remotionlambda-51ph4zifjl/renders/e1vycpoer8/out.mp4';
 const thumbFilePath = '../../out/thumb.png';
 const videoFilePath = '../../out/video.mp4';
 
+const TOKEN_PATH = '../tokens.json';
 const CLIENT_SECRETS_FILE = require('./client_secrets.json');
 const SCOPES = ['https://www.googleapis.com/auth/youtube.upload'];
 
+const code = process.env.GOOGLE_API_CODE;
+
 const init = (title, description, tags) => {
-  
   const oauth2Client = new google.auth.OAuth2(
     CLIENT_SECRETS_FILE.web.client_id,
     CLIENT_SECRETS_FILE.web.client_secret,
     CLIENT_SECRETS_FILE.web.redirect_uris
   );
-
-  const url = oauth2Client.generateAuthUrl({
-    access_type: 'offline',
-    scope: SCOPES
-  });
-
-  console.log('url', url)
-
-  // const {tokens} = await oauth2Client.getToken(code)
-  // oauth2Client.setCredentials(tokens);
-
+  
+  if(code == '') {
+    const url = oauth2Client.generateAuthUrl({
+      access_type: 'offline',
+      include_granted_scopes: true,
+      response_type: 'code',
+      approval_promp: 'force',
+      scope: SCOPES
+    });
+  
+    console.log('URL: ', url);
+  } else {
+    console.log('code: ', code)
+    
+    oauth2Client.getToken(code)
+    .then(tokens => {
+      oauth2Client.setCredentials(tokens);
+      if (tokens.refresh_token) {
+        // store the refresh_token in my database!
+        storeToken(token);
+        console.log('refresh_token: ', tokens.refresh_token);
+      }
+      console.log('access_token: ', tokens.access_token);
+    });
+  }
+  
   // const youtubeService = google.youtube({version: 'v3', auth: authClient });
-
   // uploadVideo(youtubeService, auth, title, description, tags)
 };
 
@@ -103,22 +119,15 @@ function getNewToken(oauth2Client, callback) {
     access_type: 'offline',
     scope: SCOPES
   });
-  console.log('Authorize this app by visiting this url: ', authUrl);
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-  });
-  rl.question('Enter the code from that page here: ', function(code) {
-    rl.close();
-    oauth2Client.getToken(code, function(err, token) {
-      if (err) {
-        console.log('Error while trying to retrieve access token', err);
-        return;
-      }
-      oauth2Client.credentials = token;
-      storeToken(token);
-      callback(oauth2Client);
-    });
+
+  oauth2Client.getToken(code, function(err, token) {
+    if (err) {
+      console.log('Error while trying to retrieve access token', err);
+      return;
+    }
+    oauth2Client.credentials = token;
+    storeToken(token);
+    callback(oauth2Client);
   });
 }
 
