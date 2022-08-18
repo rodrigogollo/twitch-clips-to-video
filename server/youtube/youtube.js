@@ -2,63 +2,41 @@ const fs = require('fs');
 const https = require('https');
 const args = require('minimist')(process.argv.slice(2));
 require('dotenv').config({path: __dirname + '/../../.env' })
-
+const { clips } = require(__dirname + '/../../downloads/clips.json')
 const { google } = require('googleapis');
+const { time_convert } = require('../../utils/index');
+
+const TOKEN_PATH = '../tokens.json';
+const CLIENT_SECRETS_FILE = require('./client_secrets.json');
+const SCOPES = ['https://www.googleapis.com/auth/youtube.upload'];
 
 const renderURL = args.renderURL || 'https://s3.us-east-1.amazonaws.com/remotionlambda-51ph4zifjl/renders/e1vycpoer8/out.mp4';
 const thumbFilePath = '../../out/thumb.png';
 const videoFilePath = '../../out/outputAWS.mp4';
 
-console.log('videoFilePath', videoFilePath)
-const TOKEN_PATH = '../tokens.json';
-const CLIENT_SECRETS_FILE = require('./client_secrets.json');
-const SCOPES = ['https://www.googleapis.com/auth/youtube.upload'];
-
-const code = process.env.GOOGLE_API_CODE;
-
-const init = (title, description, tags) => {
+const init = (title) => {
 
   const oauth2Client = new google.auth.OAuth2(
     CLIENT_SECRETS_FILE.web.client_id,
     CLIENT_SECRETS_FILE.web.client_secret,
     CLIENT_SECRETS_FILE.web.redirect_uris
   );
-  
-  if(code == '') {
-    const url = oauth2Client.generateAuthUrl({
-      access_type: 'offline',
-      include_granted_scopes: true,
-      response_type: 'code',
-      approval_promp: 'force',
-      scope: SCOPES
-    });
-  
-    console.log('URL: ', url);
-  } else {
-    // console.log('code: ', code);
-
-    // oauth2Client.getToken(code)
-    // .then(response => {
-    //   console.log(response.tokens)
-
-    //   if (response.tokens.refresh_token) {
-    //     // store the refresh_token in my database!
-    //     storeToken(response.tokens);
-    //     console.log('refresh_token: ', response.tokens.refresh_token);
-    //   }
-    //   console.log('access_token: ', response.tokens.access_token);
-    // });
-  }
+ 
   const token = require(TOKEN_PATH);
-  
   oauth2Client.setCredentials(token);
 
   const youtubeService = google.youtube({version: 'v3', auth: oauth2Client });
-  uploadVideo(youtubeService, oauth2Client, title, description, tags)
+  saveVideoFromLambdaLocally().then(() => {
+    const description = createVideoDescriptionTimestamps();
+    const tags = createDefaultTags();
+    uploadVideo(youtubeService, oauth2Client, title, description, tags)
+  })
 };
 
 function uploadVideo(service, auth, title, description, tags) {
-  const videoStream = https.get(renderURL, res => res.pipe(fs.createWriteStream('../../out/outputAWS.mp4')))
+  const uploadDateNextHour = new Date();
+  uploadDateNextHour.setHours(uploadDateNextHour.getHours() + Math.round(uploadDateNextHour.getMinutes()/60) + 2);
+  uploadDateNextHour.setMinutes(0, 0, 0);
 
   service.videos.insert({
     auth: auth,
@@ -70,10 +48,12 @@ function uploadVideo(service, auth, title, description, tags) {
         tags,
         categoryId: "24",
         defaultLanguage: 'en',
-        defaultAudioLanguage: 'en'
+        defaultAudioLanguage: 'en',
       },
       status: {
-        privacyStatus: 'private'
+        privacyStatus: 'private',
+        selfDeclaredMadeForKids: false,
+        publishAt: uploadDateNextHour
       },
     },
     media: {
@@ -87,20 +67,20 @@ function uploadVideo(service, auth, title, description, tags) {
     }
     console.log(response.data);
 
-    console.log('Video uploaded. Uploading the thumbnail now.');
-    service.thumbnails.set({
-      auth: auth,
-      videoId: response.data.id,
-      media: {
-        body: fs.createReadStream(thumbFilePath)
-      },
-    }, function(err, response){
-      if(err){
-        console.log('The API returned an error: ', err);
-        return;
-      }
-      console.log(response.data);
-    })
+    // console.log('Video uploaded. Uploading the thumbnail now.');
+    // service.thumbnails.set({
+    //   auth: auth,
+    //   videoId: response.data.id,
+    //   media: {
+    //     body: fs.createReadStream(thumbFilePath)
+    //   },
+    // }, function(err, response){
+    //   if(err){
+    //     console.log('The API returned an error: ', err);
+    //     return;
+    //   }
+    //   console.log(response.data);
+    // })
   });
 }
 
@@ -111,4 +91,81 @@ function storeToken(token) {
   });
 }
 
-// init('title test', 'description test', ['twitch', 'game'])
+function saveVideoFromLambdaLocally (){
+  return new Promise((resolve, reject) => {
+    try {
+      const w = fs.createWriteStream('../../out/outputAWS.mp4');
+      
+      https.get(renderURL, res => res.pipe(w));
+      
+      w.on('finish', function() {
+        console.log("Arquivo Salvo Localmente: 'outputAWS.mp4' ");
+        resolve();
+      })
+
+    } catch(err) {
+      reject();
+    }
+  });
+}
+
+function getAuthURL (oauth2Client) {
+  const url = oauth2Client.generateAuthUrl({
+    access_type: 'offline',
+    include_granted_scopes: true,
+    response_type: 'code',
+    approval_promp: 'force',
+    scope: SCOPES
+  });
+  
+  return url;
+}
+
+function getTokenAndStore(oauth2Client) {
+  const code = process.env.GOOGLE_API_CODE;
+  oauth2Client.getToken(code)
+  .then(response => {
+    // console.log(response.tokens)
+    if (response.tokens.refresh_token) {
+      // store the refresh_token in my database!
+      storeToken(response.tokens);
+      console.log('refresh_token: ', response.tokens.refresh_token);
+    }
+    console.log('access_token: ', response.tokens.access_token);
+  });
+}
+
+function createDefaultTags() {
+  const defaultTags = ['twitch', 'clips', 'daily', 'best', 'highlights', 'stream', 'streamer', 'twitch daily', 'twitch daily clips', 'best twitch clips', 'twitch highlights', 'stream highlights'];
+  const clipsTags = [];
+  clips.map(clip => clipsTags.push(clip.data.broadcaster_name));
+  
+  const tags = [...defaultTags, ...clipsTags];
+  console.log(tags);
+  return tags;
+}
+
+function createVideoDescriptionTimestamps(title='') {
+  let description = `${title} \n\nThanks for Watching! \nLike and Subscribe for more. \n\nTimestamps: \n`;
+  const videoIntroAndClipInfo = 04;
+  let duration = 0;
+  clips.map((clip, i, origin) => {
+    if(i == 0) {
+      duration += videoIntroAndClipInfo;
+      description += `\n${time_convert(duration)} ${clip.data.broadcaster_name}: ${clip.data.title.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '')}`
+    } else {
+      duration += origin[i-1].data.duration + videoIntroAndClipInfo;
+      description += `\n${time_convert(duration)} ${clip.data.broadcaster_name}: ${clip.data.title.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '')}`
+    }
+  })
+
+  description += '\n\nMusic: \n\nROY KNOX - Earthquake \nROY KNOX - Breathe Me In \nJim Yosef x ROY KNOX - Sun Goes Down'
+
+  description += '\n\nIf you have business inquiries, or if you own copyright material in this video and would like it removed\nplease contact twitchdailyclips000@gmail.com before taking action.'
+  console.log(description);
+  return description;
+}
+
+// init(`Twitch Daily Clips Most Viewed Compilation - ${args.game} #${args.number}`)
+createVideoDescriptionTimestamps('Twitch Daily Clips Most Viewed Compilation - Just Chatting #1');
+// createDefaultTags();
