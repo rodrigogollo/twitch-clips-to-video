@@ -6,6 +6,25 @@ function asyncWrapper(fn) {
   }
 }
 
+function time_convert(num)
+ { 
+  var minutes = Math.floor(num / 60);  
+  var seconds = num % 60;
+  if(minutes == 0){
+    return "00:" + pad(seconds, 2);     
+  }
+  return pad(minutes.toFixed(0), 2) + ":" + pad(seconds.toFixed(0), 2);
+}
+
+function pad(num, size) {
+  num = num.toString();
+  while (num.length < size) num = "0" + num;
+  return num;
+}
+
+
 module.exports = {
-  asyncWrapper
+  asyncWrapper,
+  time_convert,
+  pad
 }

@@ -4,17 +4,20 @@ const args = require('minimist')(process.argv.slice(2));
 require('dotenv').config({path: __dirname + '/../../.env' })
 const { clips } = require(__dirname + '/../../downloads/clips.json')
 const { google } = require('googleapis');
-const { time_convert } = require('../../utils/index');
+const { time_convert } = require(__dirname + '/../../utils/index');
 
-const TOKEN_PATH = '../tokens.json';
-const CLIENT_SECRETS_FILE = require('./client_secrets.json');
+
+const TOKEN_PATH = __dirname + '/tokens.json';
+const CLIENT_SECRETS_FILE = require(__dirname + '/client_secrets.json');
 const SCOPES = ['https://www.googleapis.com/auth/youtube.upload'];
 
-const renderURL = args.renderURL || 'https://s3.us-east-1.amazonaws.com/remotionlambda-51ph4zifjl/renders/e1vycpoer8/out.mp4';
-const thumbFilePath = '../../out/thumb.png';
-const videoFilePath = '../../out/outputAWS.mp4';
+const renderURL = args.renderURL || 'https://s3.us-east-1.amazonaws.com/remotionlambda-51ph4zifjl/renders/7huwji09ma/out.mp4';
+const videoTitle = args.title || 'Twitch Daily Clips Most Viewed Compilation';
 
-const init = (title) => {
+const thumbFilePath = __dirname + '/../../out/thumb.png';
+const videoFilePath = __dirname + '/../../out/outputAWS.mp4';
+
+const init = (title=videoTitle) => {
 
   const oauth2Client = new google.auth.OAuth2(
     CLIENT_SECRETS_FILE.web.client_id,
@@ -29,7 +32,7 @@ const init = (title) => {
   saveVideoFromLambdaLocally().then(() => {
     const description = createVideoDescriptionTimestamps();
     const tags = createDefaultTags();
-    uploadVideo(youtubeService, oauth2Client, title, description, tags)
+    // uploadVideo(youtubeService, oauth2Client, title, description, tags)
   })
 };
 
@@ -92,9 +95,10 @@ function storeToken(token) {
 }
 
 function saveVideoFromLambdaLocally (){
+  console.log('Iniciando download do video do AWS Lambda');
   return new Promise((resolve, reject) => {
     try {
-      const w = fs.createWriteStream('../../out/outputAWS.mp4');
+      const w = fs.createWriteStream(__dirname + '/../../out/outputAWS.mp4');
       
       https.get(renderURL, res => res.pipe(w));
       
@@ -138,9 +142,10 @@ function getTokenAndStore(oauth2Client) {
 function createDefaultTags() {
   const defaultTags = ['twitch', 'clips', 'daily', 'best', 'highlights', 'stream', 'streamer', 'twitch daily', 'twitch daily clips', 'best twitch clips', 'twitch highlights', 'stream highlights'];
   const clipsTags = [];
+  const clipsGame = '' || args.name;
   clips.map(clip => clipsTags.push(clip.data.broadcaster_name));
   
-  const tags = [...defaultTags, ...clipsTags];
+  const tags = [...defaultTags, ...clipsTags, ...clipsGame];
   console.log(tags);
   return tags;
 }
@@ -160,12 +165,16 @@ function createVideoDescriptionTimestamps(title='') {
   })
 
   description += '\n\nMusic: \n\nROY KNOX - Earthquake \nROY KNOX - Breathe Me In \nJim Yosef x ROY KNOX - Sun Goes Down'
-
   description += '\n\nIf you have business inquiries, or if you own copyright material in this video and would like it removed\nplease contact twitchdailyclips000@gmail.com before taking action.'
-  console.log(description);
+  // console.log(description);
   return description;
 }
 
 // init(`Twitch Daily Clips Most Viewed Compilation - ${args.game} #${args.number}`)
-createVideoDescriptionTimestamps('Twitch Daily Clips Most Viewed Compilation - Just Chatting #1');
+// init(`Twitch Daily Clips Most Viewed Compilation - GTA V #1`)
+// createVideoDescriptionTimestamps('Twitch Daily Clips Most Viewed Compilation - Just Chatting #1');
 // createDefaultTags();
+
+module.exports = {
+  init
+}

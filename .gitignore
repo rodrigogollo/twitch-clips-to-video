@@ -2,8 +2,7 @@ node_modules
 dist
 .DS_Store
 .env
-downloads/*.mp4
+downloads
 # Ignore the output video from Git but not videos you import into src/.
 out
-server/youtube/client_secret.json
-server/youtube/client_key.json
+server/youtube/*.json

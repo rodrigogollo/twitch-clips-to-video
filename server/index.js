@@ -7,8 +7,9 @@ const cliProgress = require('cli-progress');
 const { asyncWrapper } = require('../utils');
 
 const args = require('minimist')(process.argv.slice(2));
+args.name = args.name + ' ' + process.argv.slice(8, process.argv.length).join(' ');
+args.name = args.name.trim();
 
-console.log(args.name)
 // node index.js func= (game || broadcaster) name= (csgo || imaqtpie) size=10 (clips size) date= (day, week, month)
 
 // let progressBarList = {}
@@ -19,6 +20,8 @@ console.log(args.name)
 // }, cliProgress.Presets.legacy);
 
 async function makeVideo() {
+
+  console.log(`Getting the top ${args.size} clips of the ${args.func} '${args.name}' from the past ${args.date}.`);
 
   asyncWrapper(clearFolder(__dirname + `/../downloads/`));
 
@@ -59,7 +62,6 @@ async function makeVideo() {
   }
 
   if(func == 'game') {
-    if(args.name.includes('just')) name = 'just chatting';
     gameData = await twitchGets.getGameByName(name);
     getClipData = await twitchGets.getClipsByGame(gameData.data[0].id, 100, date, today);
   } else {
@@ -72,7 +74,8 @@ async function makeVideo() {
   console.log('dados:', getClipData.data)
 
   let clipsFiltered = getClipData.data.filter(item => (
-    item.duration >= 25
+    item.duration >= 25 && 
+    item.language == 'en'
   ))
   let uniqueStreamerClips;
 
