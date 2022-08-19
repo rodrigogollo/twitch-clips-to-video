@@ -6,12 +6,11 @@ function asyncWrapper(fn) {
   }
 }
 
-function time_convert(num)
- { 
+function time_convert(num){ 
   var minutes = Math.floor(num / 60);  
   var seconds = num % 60;
   if(minutes == 0){
-    return "00:" + pad(seconds, 2);     
+    return "00:" + pad(seconds.toFixed(0), 2);     
   }
   return pad(minutes.toFixed(0), 2) + ":" + pad(seconds.toFixed(0), 2);
 }
