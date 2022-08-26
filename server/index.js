@@ -78,14 +78,10 @@ async function makeVideo() {
     item.language == 'en'
   ))
   let uniqueStreamerClips;
-
-  if(func != 'game'){
-    uniqueStreamerClips = clipsFiltered
-  } else {
-    uniqueStreamerClips = clipsFiltered.filter((value, index, self) => index === self.findIndex((t) => (
-      t.broadcaster_name === value.broadcaster_name
-    )))
-  }
+  uniqueStreamerClips = clipsFiltered;
+  // uniqueStreamerClips = clipsFiltered.filter((value, index, self) => index === self.findIndex((t) => (
+  //   t.broadcaster_name ===value.broadcaster_name
+  // )))
 
   let topClips = uniqueStreamerClips.slice(0, size);
   let clipList = []; 

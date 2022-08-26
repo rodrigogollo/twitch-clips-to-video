@@ -7,7 +7,7 @@
     "build": "remotion render src/index.tsx MyVideo out/video.mp4",
     "upgrade": "remotion upgrade",
     "test": "eslint src --ext ts,tsx,js,jsx && tsc",
-    "makevideo": "npx run-func server/index.js makeVideo --func=broadcaster --size=12 --date=month --name=moonmoon",
+    "makevideo": "npx run-func server/index.js makeVideo --func=b --size=12 --date=twodays --name=esfandtv",
     "upload": "npx run-func server/youtube/youtube.js init --title=Twitch Daily Clips Most Viewed Compilation --name=jerma985 --renderURL="
   },
   "repository": {},

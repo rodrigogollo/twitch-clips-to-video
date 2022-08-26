@@ -11,8 +11,8 @@ const TOKEN_PATH = __dirname + '/tokens.json';
 const CLIENT_SECRETS_FILE = require(__dirname + '/client_secrets.json');
 const SCOPES = ['https://www.googleapis.com/auth/youtube.upload'];
 
-const renderURL = args.renderURL || 'https://s3.us-east-1.amazonaws.com/remotionlambda-51ph4zifjl/renders/caryrne7qo/out.mp4';
-const videoTitle = args.title || 'Twitch Daily Clips Most Viewed Compilation';
+const renderURL = args.renderURL || 'https://s3.us-east-1.amazonaws.com/remotionlambda-51ph4zifjl/renders/ye2hyykqbo/out.mp4';
+const videoTitle = args.title || 'Twitch Most Viewed Clips of the Week Compilation';
 
 const thumbFilePath = __dirname + '/../../out/thumb.png';
 const videoFilePath = __dirname + '/../../out/outputAWS.mp4';
@@ -32,7 +32,7 @@ const init = (title=videoTitle) => {
   saveVideoFromLambdaLocally().then(() => {
     const description = createVideoDescriptionTimestamps();
     const tags = createDefaultTags();
-    uploadVideo(youtubeService, oauth2Client, title, description, tags)
+    // uploadVideo(youtubeService, oauth2Client, title, description, tags)
   })
 };
 
@@ -140,7 +140,8 @@ function getTokenAndStore(oauth2Client) {
 }
 
 function createDefaultTags() {
-  const defaultTags = ['twitch', 'clips', 'daily', 'best', 'highlights', 'stream', 'streamer', 'twitch daily', 'twitch daily clips', 'best twitch clips', 'twitch highlights', 'stream highlights'];
+  const defaultTags = ['twitch', 'clips', 'daily', 'best', 'highlights', 'stream', 'streamer', 
+  'twitch daily', 'twitch daily clips', 'best twitch clips', 'twitch highlights', 'stream highlights'];
   const clipsTags = [];
   const clipsGame = [] || args.name;
   clips.map(clip => clipsTags.push(clip.data.broadcaster_name));
@@ -152,20 +153,25 @@ function createDefaultTags() {
 }
 
 function createVideoDescriptionTimestamps(title='') {
-  let description = `${title} \n\nThanks for Watching! \nLike and Subscribe for more. \n\nTimestamps: \n`;
-  const videoIntroAndClipInfo = 04;
+  let description = `${title} \n\nThanks for Watching! \nLike and Subscribe for more. \n\n`;
   let duration = 0;
   let arrayBroadcaster = clips.map(clip => clip.data.broadcaster_name);
   let uniqBroadcaster = [...new Set(arrayBroadcaster)];
   let isOnlyOneBroadcaster = uniqBroadcaster.length == 1;
 
+  
+
   clips.map((clip, i, origin) => {
+    
     if(i == 0) {
-      duration += videoIntroAndClipInfo;
-    } else {
-      duration += origin[i-1].data.duration + videoIntroAndClipInfo;
+      duration += 0;
+      description += `${isOnlyOneBroadcaster? 'https://twitch.tv/' + clip.data.broadcaster_name: ''}`;
+      description += '\n\nTimestamps: \n';
+    } else if(i == 1) duration += origin[i-1].data.duration + 8; 
+    else if(i != 0) {
+      duration += origin[i-1].data.duration + 4;
     }
-    description += `\n${time_convert(duration)} ${isOnlyOneBroadcaster? '' : clip.data.broadcaster_name + ': '}${clip.data.title.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '')}`
+    description += `\n${time_convert(duration)} ${clip.data.title.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '')}${isOnlyOneBroadcaster? '' : ' - https://twitch.tv/' + clip.data.broadcaster_name}`
   })
 
   description += '\n\nMusic: \n\nROY KNOX - Earthquake \nROY KNOX - Breathe Me In \nJim Yosef x ROY KNOX - Sun Goes Down'
@@ -174,9 +180,8 @@ function createVideoDescriptionTimestamps(title='') {
   return description;
 }
 
-// init(`Twitch Daily Clips Most Viewed Compilation - ${args.game} #${args.number}`)
-// init(`Twitch Daily Clips Most Viewed Week Compilation - MoonMoon #1`)
-// createVideoDescriptionTimestamps('Twitch Daily Clips Most Viewed Compilation - Just Chatting #1');
+// init(`Top Twitch Clips of the Week - Forsen #1`)
+createVideoDescriptionTimestamps('Top Twitch Clips of the Week - Forsen #1');
 // createDefaultTags();
 
 module.exports = {

@@ -11,22 +11,23 @@ export const ClipInfo: React.FC<{
 }> = ({broadcaster, title, date, creator}) => {
  
 const frame = useCurrentFrame();
-const { durationInFrames } = useVideoConfig();
-const opacity = interpolate(frame, [durationInFrames - 10, durationInFrames], [1, 0])
+const slideIn =  interpolate(frame, [60, 150], [-600, 0],  {
+  extrapolateRight: "clamp",
+});
+const opacity =  interpolate(frame, [300, 350], [1, 0]);
 
-	return (
+  return (
     <div className="clip-info" style={{
-      opacity: opacity
+      opacity: opacity,
+      left: slideIn
     }}>
-      <h1>"{title}"</h1>
-      <h2>Created by: <span>{creator}</span></h2>
-      <h2>{date}</h2>
-      <Audio
+    <h2>{title} - <span>{creator}</span> ({date})</h2>
+      {/* <Audio
         src={audio}
         startFrom={10800} // if composition is 30fps, then it will start at 15s
         endAt={11200} // if composition is 30fps, then it will end at 18s
         volume={0.2}
-      />
+      /> */}
     </div>
     
   );

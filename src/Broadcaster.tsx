@@ -13,7 +13,7 @@ export const Broadcaster: React.FC <{broadcaster: any}>= ({broadcaster}) => {
 	return (
     <div className="broadcaster" style={{
       opacity: opacity,
-      left: slideIn
+      right: slideIn
     }}>
       <FontAwesomeIcon className="icon" icon={faTwitch} />
       <h1>{broadcaster}</h1>
