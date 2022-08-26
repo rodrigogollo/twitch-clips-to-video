@@ -34,13 +34,13 @@ export const Video: React.FC <{clipList: any, totalDuration: any }>= ({ clipList
     <>
     { clipList ? (
         <>
-          <Sequence from={0} durationInFrames={transition}>
+          {/* <Sequence from={0} durationInFrames={transition}>
             <Intro />
-          </Sequence>
+          </Sequence> */}
           <ClipsList clipList={clipList} transition={transition} />
-          <Sequence from={transition + duration} durationInFrames={transition * 2}>
+          {/* <Sequence from={transition + duration} durationInFrames={transition * 2}>
             <Outro />
-          </Sequence>
+          </Sequence> */}
         </>
     ) : null }
     </>

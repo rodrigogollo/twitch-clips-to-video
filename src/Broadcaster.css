@@ -10,17 +10,16 @@
   margin: 0 auto;
   padding: 20px;
   border-radius: 10px 0 0 10px ;
-  background-color: rgb(100, 65, 165);
+  background-color: rgb(61, 35, 110);
   font-size: 16px;
   opacity: 1;
-}
-
-.broadcaster h1 {
-  color: white
+  color: white;
+  text-shadow: 3px 3px rgba(145, 70, 255, 0.8);
 }
 
 .broadcaster .icon {
   color: white;
   font-size: 60px;
   margin-right: 20px;
+  filter: drop-shadow(3px 3px rgba(145, 70, 255, 0.8))
 }

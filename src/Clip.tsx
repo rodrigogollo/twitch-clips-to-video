@@ -19,8 +19,7 @@ export const Clip: React.FC<{clip: any}> = ({clip}) => {
 
 	return (
     <>
-    {console.log(internals)}
-      <AbsoluteFill style={{ opacity: opacityFadeInOut }}>
+      <AbsoluteFill style={{ opacity: opacityFadeInOut, justifyContent: 'center', margin: 'auto'}}>
         <Broadcaster broadcaster={clip.data.broadcaster_name} />
         <ClipInfo broadcaster={clip.data.broadcaster_name} title={clip.data.title} date={clip.data.created_at.substring(0, 10)} creator={clip.data.creator_name}/>
         <Video src={source} volume={0.5} />

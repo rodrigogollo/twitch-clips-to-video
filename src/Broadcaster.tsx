@@ -5,7 +5,7 @@ import './Broadcaster.css'
 
 export const Broadcaster: React.FC <{broadcaster: any}>= ({broadcaster}) => {
   const frame = useCurrentFrame();
-  const slideIn =  interpolate(frame, [60, 200], [-600, 0],  {
+  const slideIn =  interpolate(frame, [40, 120], [-600, 0],  {
     extrapolateRight: "clamp",
   });
   const opacity =  interpolate(frame, [300, 350], [1, 0]);

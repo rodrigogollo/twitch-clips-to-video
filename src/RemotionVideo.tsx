@@ -25,12 +25,18 @@ export const RemotionVideo: React.FC = () => {
     fetchData();
   }, [fetchData])
 
+
+  const intro = 120;
+  const outro = 120;
+
   return (
 			<Composition
         id="MyVideo"
         component={Video}
-        durationInFrames={duration + 720} //videos duration + intro(120) + outro(360)
+        durationInFrames={duration} //videos duration + intro(120) + outro(360)
         fps={60}
+        // width={1920}
+        // height={1080}
         width={1920}
         height={1080}
         defaultProps={{ clipList: clipsJSON.clips, totalDuration: duration }}

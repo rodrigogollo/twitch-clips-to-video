@@ -7,18 +7,20 @@
   text-align: center;
   align-items: center;
   justify-content: center;
-  background-color: rgb(100, 65, 165);
+  background-color: rgb(61, 35, 110);
   text-align: center;
-  width: 30%;
   height: auto;
   margin: 0 auto;
-  padding: 30px;
+  padding: 20px;
   border-radius: 0 10px 10px 0;
+  max-width: 60%;
 }
 
 .clip-info h2 {
   color: white;
   font-size: 2em;
+  font-weight: normal;
+  text-shadow: 3px 3px black;
 }
 
 .clip-info span {
