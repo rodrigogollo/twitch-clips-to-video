@@ -18,8 +18,7 @@ export const Video: React.FC <{clipList: any, totalDuration: any }>= ({ clipList
     let totalDuration = 0;
 
     for await (const clip of clipsJSON.clips){
-      totalDuration += (Math.round(clip.data.duration * 60) + transition);
-      break;
+      totalDuration += (Math.round(clip.data.duration * 60));
     }
 
     setDuration(totalDuration);
@@ -39,7 +38,7 @@ export const Video: React.FC <{clipList: any, totalDuration: any }>= ({ clipList
             <Intro />
           </Sequence>
           <ClipsList clipList={clipList} transition={transition} />
-          <Sequence from={transition + totalDuration} durationInFrames={transition * 3}>
+          <Sequence from={transition + duration} durationInFrames={transition * 2}>
             <Outro />
           </Sequence>
         </>

@@ -15,7 +15,7 @@ export const RemotionVideo: React.FC = () => {
     
     for await (const clip of clipsJSON.clips) {
       let duration = Math.round(clip.data.duration * 60);
-      totalDuration += duration + 240;
+      totalDuration += duration;
     }
     setDuration(totalDuration);
     continueRender(handle);
