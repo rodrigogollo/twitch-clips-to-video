@@ -26,6 +26,7 @@ async function makeVideo() {
   asyncWrapper(clearFolder(__dirname + `/../downloads/`));
 
   let today = new Date();
+  let hours = new Date();
   let yesterday = new Date();
   let twodays = new Date();
   let week = new Date();
@@ -36,6 +37,7 @@ async function makeVideo() {
   week.setDate(today.getDate() - 7);
   month.setMonth(today.getMonth() - 1);
 
+  hours.setHours(today.getHours() - 12);
   today.setHours(0,0,0,0);
   yesterday.setHours(0,0,0,0);
   twodays.setHours(0,0,0,0);
@@ -50,6 +52,8 @@ async function makeVideo() {
   let date = args.date || yesterday;
 
   switch(date) {
+    case 'hours': date = hours
+    break;
     case 'day': date = yesterday
     break;
     case 'twodays': date = twodays
@@ -86,7 +90,7 @@ async function makeVideo() {
   let topClips = uniqueStreamerClips.slice(0, size);
   let clipList = []; 
 
-  topClips.reverse().forEach((item, i) => {
+  topClips.forEach((item, i) => {
     durationAllVideos += item.duration;
     let filename = `clip${i+1}`;
     let URL_CLIP = item.thumbnail_url.replace('-preview-480x272.jpg', '.mp4');

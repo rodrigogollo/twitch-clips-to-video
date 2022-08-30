@@ -26,14 +26,14 @@ export const RemotionVideo: React.FC = () => {
   }, [fetchData])
 
 
-  const intro = 120;
-  const outro = 120;
+  const intro = 240;
+  const outro = intro * 2;
 
   return (
 			<Composition
         id="MyVideo"
         component={Video}
-        durationInFrames={duration} //videos duration + intro(120) + outro(360)
+        durationInFrames={intro + duration + outro} //videos duration + intro(120) + outro(360)
         fps={60}
         // width={1920}
         // height={1080}

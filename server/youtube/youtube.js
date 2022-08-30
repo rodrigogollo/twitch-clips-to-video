@@ -167,14 +167,14 @@ function createVideoDescriptionTimestamps(title='') {
       duration += 0;
       description += `${isOnlyOneBroadcaster? 'https://twitch.tv/' + clip.data.broadcaster_name: ''}`;
       description += '\n\nTimestamps: \n';
-    } else if(i == 1) duration += origin[i-1].data.duration + 8; 
+    } else if(i == 1) duration += origin[i-1].data.duration + 4; 
     else if(i != 0) {
-      duration += origin[i-1].data.duration + 4;
+      duration += origin[i-1].data.duration// + 4;
     }
     description += `\n${time_convert(duration)} ${clip.data.title.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '')}${isOnlyOneBroadcaster? '' : ' - https://twitch.tv/' + clip.data.broadcaster_name}`
   })
 
-  description += '\n\nMusic: \n\nROY KNOX - Earthquake \nROY KNOX - Breathe Me In \nJim Yosef x ROY KNOX - Sun Goes Down'
+  description += '\n\nMusic: \n\nROY KNOX - Earthquake \nJim Yosef x ROY KNOX - Sun Goes Down'
   description += '\n\nIf you have business inquiries, or if you own copyright material in this video and would like it removed\nplease contact twitchdailyclips000@gmail.com before taking action.'
   console.log(description);
   return description;

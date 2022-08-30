@@ -1,0 +1,21 @@
+.outro {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  padding: 5% 0;
+}
+
+.outro > h1, .outro > h2 {
+  color: white;
+  font-size: 8em;
+  opacity: 0;
+}
+
+.outro .icon {
+  margin-left: 30px;
+}

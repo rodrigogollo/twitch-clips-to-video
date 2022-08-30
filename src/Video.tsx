@@ -5,7 +5,9 @@ const { asyncWrapper} = require('../utils');
 import clipsJSON from '../downloads/clips.json';
 import { Intro } from "./Intro";
 import { Outro } from "./Outro";
+import { OutroTikTok } from "./OutroTikTok";
 import { ClipsList } from "./ClipsList";
+import { Subscribe } from "./Subscribe";
 
 export const Video: React.FC <{clipList: any, totalDuration: any }>= ({ clipList, totalDuration }) => {
 
@@ -34,12 +36,18 @@ export const Video: React.FC <{clipList: any, totalDuration: any }>= ({ clipList
     <>
     { clipList ? (
         <>
-          {/* <Sequence from={0} durationInFrames={transition}>
+          <Sequence from={0} durationInFrames={transition}>
             <Intro />
-          </Sequence> */}
-          <ClipsList clipList={clipList} transition={transition} />
-          {/* <Sequence from={transition + duration} durationInFrames={transition * 2}>
+          </Sequence>
+          <Sequence from={transition} durationInFrames={360}>
+            <Subscribe />
+          </Sequence>
+          <ClipsList clipList={clipList} transition={transition + 360} />
+          <Sequence from={transition + duration} durationInFrames={transition * 2}> 
             <Outro />
+          </Sequence>
+          {/* <Sequence from={0} durationInFrames={transition * 2}> 
+            <OutroTikTok />
           </Sequence> */}
         </>
     ) : null }
