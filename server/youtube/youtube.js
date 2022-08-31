@@ -153,7 +153,7 @@ function createDefaultTags() {
 }
 
 function createVideoDescriptionTimestamps(title='') {
-  let description = `${title} \n\nThanks for Watching! \nLike and Subscribe for more. \n\n`;
+  let description = `${title} \n\nThanks for Watching! \nLike and Subscribe for more. \n`;
   let duration = 0;
   let arrayBroadcaster = clips.map(clip => clip.data.broadcaster_name);
   let uniqBroadcaster = [...new Set(arrayBroadcaster)];
@@ -165,9 +165,11 @@ function createVideoDescriptionTimestamps(title='') {
     
     if(i == 0) {
       duration += 0;
-      description += `${isOnlyOneBroadcaster? 'https://twitch.tv/' + clip.data.broadcaster_name: ''}`;
-      description += '\n\nTimestamps: \n';
-    } else if(i == 1) duration += origin[i-1].data.duration + 4; 
+      description += `${isOnlyOneBroadcaster? '\nhttps://twitch.tv/' + clip.data.broadcaster_name + '\n': ''}`;
+      description += '\nTimestamps: \n';
+      description += `\n00:00 Intro`
+      duration += 10;
+    } else if(i == 1) duration += origin[i-1].data.duration; 
     else if(i != 0) {
       duration += origin[i-1].data.duration// + 4;
     }
